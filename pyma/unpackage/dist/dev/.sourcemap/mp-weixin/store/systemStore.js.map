@@ -1,0 +1,1 @@
+{"version":3,"file":"systemStore.js","sources":["store/systemStore.js"],"sourcesContent":["import {\r\n\treactive\r\n} from 'vue'\r\n\r\nexport default {\r\n\tdata: {}\r\n}"],"names":[],"mappings":";;AAIA,MAAe,cAAA;AAAA,EACd,MAAM,CAAE;AACT;;"}
