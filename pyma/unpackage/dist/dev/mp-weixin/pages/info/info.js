@@ -28,17 +28,17 @@ const _sfc_main = {
       this.is_popup = false;
     },
     onChooseAvatar(e) {
-      common_vendor.index.__f__("log", "at pages/info/info.vue:95", e);
+      common_vendor.index.__f__("log", "at pages/info/info.vue:103", e);
       const {
         avatarUrl
       } = e.detail;
-      common_vendor.index.__f__("log", "at pages/info/info.vue:99", "avatarUrl", avatarUrl);
+      common_vendor.index.__f__("log", "at pages/info/info.vue:107", "avatarUrl", avatarUrl);
       this.defaultAvatarUrl = avatarUrl;
       this.userInfoRaw.avatarUrl = avatarUrl;
     },
     onInput(e) {
       const nickname = e.target.value;
-      common_vendor.index.__f__("log", "at pages/info/info.vue:105", "nickName input", nickname);
+      common_vendor.index.__f__("log", "at pages/info/info.vue:113", "nickName input", nickname);
       this.userInfoRaw.nickname = nickname;
     },
     // 点击提交按钮
@@ -60,7 +60,7 @@ const _sfc_main = {
   async mounted() {
     this.pageInfo = await pages_info_index.getPageInfo();
     if (this.systemInfo.screenWidth >= 768) {
-      common_vendor.index.__f__("log", "at pages/info/info.vue:128", "screenWidth>=768");
+      common_vendor.index.__f__("log", "at pages/info/info.vue:136", "screenWidth>=768");
       this.popupBoxHeight = "60";
     }
   },
@@ -71,7 +71,7 @@ const _sfc_main = {
   computed: {
     systemInfo() {
       const data = store_systemStore.systemStore.data;
-      common_vendor.index.__f__("log", "at pages/info/info.vue:139", "inof", data);
+      common_vendor.index.__f__("log", "at pages/info/info.vue:147", "inof", data);
       return {
         navBarHeight: data.navBarHeight,
         screenWidth: data.screenWidth
@@ -113,16 +113,23 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         c: index
       };
     }),
-    f: ((_d = $options.systemInfo) == null ? void 0 : _d.navBarHeight) + $data.gap + "px",
-    g: common_vendor.t($data.appName),
-    h: $options.userInfo.avatarUrl || $data.defaultAvatarUrl,
-    i: common_vendor.o((...args) => $options.onChooseAvatar && $options.onChooseAvatar(...args)),
-    j: $options.userInfo.nickname || $data.userInfoRaw.nickname,
-    k: common_vendor.o((...args) => $options.onInput && $options.onInput(...args)),
-    l: common_vendor.o((...args) => $options.onCancle && $options.onCancle(...args)),
-    m: common_vendor.o((...args) => $options.onSubmit && $options.onSubmit(...args)),
-    n: common_vendor.o(($event) => $data.is_popup = $event),
-    o: common_vendor.p({
+    f: common_vendor.f($data.pageInfo.sysNavList, (item, index, i0) => {
+      return {
+        a: common_vendor.t(item.unicode),
+        b: common_vendor.t(item.text),
+        c: index
+      };
+    }),
+    g: ((_d = $options.systemInfo) == null ? void 0 : _d.navBarHeight) + $data.gap + "px",
+    h: common_vendor.t($data.appName),
+    i: $options.userInfo.avatarUrl || $data.defaultAvatarUrl,
+    j: common_vendor.o((...args) => $options.onChooseAvatar && $options.onChooseAvatar(...args)),
+    k: $options.userInfo.nickname || $data.userInfoRaw.nickname,
+    l: common_vendor.o((...args) => $options.onInput && $options.onInput(...args)),
+    m: common_vendor.o((...args) => $options.onCancle && $options.onCancle(...args)),
+    n: common_vendor.o((...args) => $options.onSubmit && $options.onSubmit(...args)),
+    o: common_vendor.o(($event) => $data.is_popup = $event),
+    p: common_vendor.p({
       height: $data.popupBoxHeight,
       show: $data.is_popup
     })

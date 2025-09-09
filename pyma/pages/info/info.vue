@@ -21,7 +21,15 @@
 				</view>
 				<view class="nav-card border-box flex-col">
 					<text class="title">我的发布</text>
-					<view class="item-nav flex-row" v-for="item, index in pageInfo.navList" :key="index">
+					<view class="item-nav border-box flex-row" v-for="item, index in pageInfo.navList" :key="index">
+						<text class="iconfont">{{item.unicode}}</text>
+						<text class="text">{{item.text}}</text>
+						<text class="iconfont">&#xe628;</text>
+					</view>
+				</view>
+				<view class="nav-card border-box flex-col">
+					<text class="title">设置</text>
+					<view class="item-nav border-box flex-row" v-for="item, index in pageInfo.sysNavList" :key="index">
 						<text class="iconfont">{{item.unicode}}</text>
 						<text class="text">{{item.text}}</text>
 						<text class="iconfont">&#xe628;</text>
@@ -238,19 +246,22 @@
 		align-items: flex-start;
 		color: $uni-color-primary;
 		border: 1px solid #ddd;
-		padding: $ele-padding;
 		padding-bottom: 0;
 		border-radius: $ele-border-radius;
 
 		.title {
-			font-size: 32rpx;
+			display: inline-block;
+			width: 100%;
+			padding: $ele-padding;
+			background-color: #ddd;
+			font-size: 30rpx;
 			font-weight: bold;
 		}
 
 		.item-nav {
 			width: 100%;
 			align-items: center;
-			padding: $ele-padding 0;
+			padding: $ele-padding;
 			border-bottom: 1px solid #ddd;
 			position: relative;
 			font-size: 32rpx;

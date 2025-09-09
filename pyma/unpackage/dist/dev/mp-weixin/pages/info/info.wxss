@@ -97,18 +97,21 @@
   align-items: flex-start;
   color: #1A4190;
   border: 1px solid #ddd;
-  padding: 20rpx;
   padding-bottom: 0;
   border-radius: 20rpx;
 }
 .nav-card .title {
-  font-size: 32rpx;
+  display: inline-block;
+  width: 100%;
+  padding: 20rpx;
+  background-color: #ddd;
+  font-size: 30rpx;
   font-weight: bold;
 }
 .nav-card .item-nav {
   width: 100%;
   align-items: center;
-  padding: 20rpx 0;
+  padding: 20rpx;
   border-bottom: 1px solid #ddd;
   position: relative;
   font-size: 32rpx;
