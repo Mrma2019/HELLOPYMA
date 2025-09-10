@@ -253,7 +253,7 @@
 		margin-top: 40rpx;
 		align-items: flex-start;
 		color: $uni-color-primary;
-		border: 1px solid #ddd;
+		border: 1px solid $uni-color-primary;
 		padding-bottom: 0;
 		border-radius: $ele-border-radius;
 

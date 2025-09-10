@@ -105,7 +105,7 @@
   margin-top: 40rpx;
   align-items: flex-start;
   color: #1A4190;
-  border: 1px solid #ddd;
+  border: 1px solid #1A4190;
   padding-bottom: 0;
   border-radius: 20rpx;
 }
