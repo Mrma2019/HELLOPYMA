@@ -1,7 +1,6 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const store_weatherStore = require("../../store/weatherStore.js");
-const store_formatStore = require("../../store/formatStore.js");
 const pages_home_index = require("./index.js");
 const utils_format = require("../../utils/format.js");
 const _sfc_main = {
@@ -13,7 +12,8 @@ const _sfc_main = {
       gap: 10,
       pageInfo: {},
       is_popup: false,
-      refresherTriggered: false
+      refresherTriggered: false,
+      dateInfo: {}
     };
   },
   async onLoad() {
@@ -24,13 +24,16 @@ const _sfc_main = {
         this.swiperHeight = rect.height;
       }).exec();
     });
-    utils_format.formatDate();
-    this.formatTimer = setInterval(() => {
-      utils_format.formatDate();
+    this.dateInfo = utils_format.formatDate();
+  },
+  onShow() {
+    this.formatDateTimer = setInterval(() => {
+      this.dateInfo = utils_format.formatDate();
     }, 600);
   },
   onHide() {
     this.is_popup = false;
+    clearInterval(this.formatDateTimer);
   },
   methods: {
     getNavBarHeight(height) {
@@ -42,8 +45,14 @@ const _sfc_main = {
     //页面跳转
     navigatorTo(e) {
       const pagepath = e.currentTarget.dataset.pagepath;
+      const that = this;
       common_vendor.index.navigateTo({
-        url: `${pagepath}`
+        url: `${pagepath}`,
+        success(res) {
+          res.eventChannel.emit("acceptDataFromOpenerPage", {
+            dateInfo: that.dateInfo
+          });
+        }
       });
     },
     async onRefresher() {
@@ -55,10 +64,10 @@ const _sfc_main = {
       return new Promise((resolve) => {
         setTimeout(() => {
           resolve();
-        }, 1e3);
+        }, 600);
       });
     },
-    onClick(item) {
+    openPopup(item) {
       if (item.is_popup) {
         this.is_popup = true;
       } else {
@@ -78,31 +87,18 @@ const _sfc_main = {
         icon: data.icon
       };
     },
-    date() {
-      const data = store_formatStore.formatStore.store.data;
-      const date = data.date.split("-").map((item, index) => {
-        let label = "";
-        switch (index) {
-          case 0:
-            label = "Year";
-            break;
-          case 1:
-            label = "Month";
-            break;
-          case 2:
-            label = "Date";
-            break;
-        }
+    dateParts() {
+      const labels = ["Year", "Month", "Date"];
+      if (!this.dateInfo.date)
+        return [];
+      return this.dateInfo.date.split("-").map((val, i) => {
+        if (i === 0)
+          val = val.slice(-2);
         return {
-          value: item,
-          label
+          value: val || "--",
+          label: labels[i] || ""
         };
       });
-      return date;
-    },
-    time() {
-      const data = store_formatStore.formatStore.store.data;
-      return data.time;
     }
   }
 };
@@ -142,17 +138,17 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     g: common_vendor.n("qi-" + ((_f = $options.weatherInfo) == null ? void 0 : _f.icon)),
     h: common_vendor.n(((_g = $options.weatherInfo) == null ? void 0 : _g.icon) == 100 ? "rotate" : "breath"),
     i: common_vendor.t(((_h = $options.weatherInfo) == null ? void 0 : _h.temp) || "--"),
-    j: common_vendor.t($options.time || "--"),
+    j: common_vendor.t($data.dateInfo.time || "--"),
     k: common_vendor.t($options.weatherInfo.text),
     l: common_vendor.t($options.weatherInfo.windDir),
     m: common_vendor.t($options.weatherInfo.humidity),
     n: (_i = $data.pageInfo.pages) == null ? void 0 : _i.info_to,
     o: common_vendor.o((...args) => $options.navigatorTo && $options.navigatorTo(...args)),
     p: common_vendor.t(((_j = $options.weatherInfo) == null ? void 0 : _j.dateTitle) || "--"),
-    q: common_vendor.f($options.date, (item, index, i0) => {
+    q: common_vendor.f($options.dateParts, (item, index, i0) => {
       return {
-        a: common_vendor.t(item["value"] || "--"),
-        b: common_vendor.t(item["label"]),
+        a: common_vendor.t(item.value),
+        b: common_vendor.t(item.label),
         c: index
       };
     }),
@@ -167,7 +163,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         b: common_vendor.t((item == null ? void 0 : item.desc) || "--"),
         c: common_vendor.t(item == null ? void 0 : item.unicode),
         d: index,
-        e: common_vendor.o(($event) => $options.onClick(item), index)
+        e: common_vendor.o(($event) => $options.openPopup(item), index)
       };
     }),
     y: common_vendor.p({
@@ -176,14 +172,12 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     z: $data.contentPanelPaddingBottom + "px",
     A: $data.refresherTriggered,
     B: common_vendor.o((...args) => $options.onRefresher && $options.onRefresher(...args)),
-    C: $data.contentPanelPaddingBottom + 20 + "px",
-    D: "20px",
-    E: common_vendor.o(($event) => $data.is_popup = $event),
-    F: common_vendor.p({
+    C: common_vendor.o(($event) => $data.is_popup = $event),
+    D: common_vendor.p({
       height: "65",
       show: $data.is_popup
     }),
-    G: common_vendor.o($options.setContentPanelPaddingBottom)
+    E: common_vendor.o($options.setContentPanelPaddingBottom)
   };
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-07e72d3c"]]);

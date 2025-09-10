@@ -1,22 +1,21 @@
 "use strict";
-const store_formatStore = require("../store/formatStore.js");
+function padStart(val, num, str) {
+  return val.toString().padStart(num, str);
+}
 function formatDate(dateStr) {
   const date = new Date(dateStr ?? Date.now());
+  const year = date.getFullYear();
+  const month = padStart(date.getMonth() + 1, 2, "0");
+  const _date = padStart(date.getDate(), 2, "0");
   const days = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
-  const prefix = date.getFullYear().toString().substr(0, 2);
-  const year = date.getFullYear().toString().substr(2, 2);
-  const month = (date.getMonth() + 1).toString().padStart(2, "0");
-  const date_ = date.getDate().toString().padStart(2, "0");
   const day = days[date.getDay()];
-  const hours = date.getHours().toString().padStart(2, "0");
-  const minutes = date.getMinutes().toString().padStart(2, "0");
+  const hours = padStart(date.getHours(), 2, "0");
+  const minutes = padStart(date.getMinutes(), 2, "0");
   const data = {
-    date: `${year}-${month}-${date_}`,
+    date: `${year}-${month}-${_date}`,
     time: `${hours}:${minutes}`,
-    day,
-    prefix
+    day
   };
-  store_formatStore.formatStore.setData(data);
   return data;
 }
 exports.formatDate = formatDate;

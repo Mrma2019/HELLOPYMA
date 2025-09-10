@@ -18,6 +18,7 @@
 		onShow: function() {
 			console.log('App Show');
 
+			// 半个小时内不再更新天气信息
 			const lastTime = uni.getStorageSync('lastGetWeatherTime' || 0);
 			const now = new Date();
 			if (now - lastTime > 30 * 60 * 1000) {

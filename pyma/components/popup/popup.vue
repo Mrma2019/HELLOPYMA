@@ -2,7 +2,7 @@
 	<template>
 		<view>
 			<!-- 遮罩 -->
-			<view v-if="show" class="overlay" @click="close"></view>
+			<view v-show="show" class="overlay" @click="close"></view>
 			<!-- 弹窗 -->
 			<view class="popup-box" :style="[style]">
 				<view class="header border-box flex-row" @touchmove.stop.prevent>

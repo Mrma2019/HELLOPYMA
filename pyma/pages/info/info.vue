@@ -12,26 +12,22 @@
 							<text class="iconfont">&#xe627;</text>
 						</view>
 					</view>
-					<view class="other flex-col">
-						<view class="default flex-row">
+					<view class="edit flex-col">
+						<view class="block flex-row">
 							<text class="iconfont">&#xe726;</text>
-							<text class="desc">预留，待开发...</text>
+							<view class="block__content flex-col">
+								<text class="text">编辑个人资料</text>
+								<text class="desc">完善信息</text>
+							</view>
 						</view>
 					</view>
 				</view>
-				<view class="nav-card border-box flex-col">
-					<text class="title">我的发布</text>
-					<view class="item-nav border-box flex-row" v-for="item, index in pageInfo.navList" :key="index">
-						<text class="iconfont">{{item.unicode}}</text>
-						<text class="text">{{item.text}}</text>
-						<text class="iconfont">&#xe628;</text>
-					</view>
-				</view>
-				<view class="nav-card border-box flex-col">
-					<text class="title">设置</text>
-					<view class="item-nav border-box flex-row" v-for="item, index in pageInfo.sysNavList" :key="index">
-						<text class="iconfont">{{item.unicode}}</text>
-						<text class="text">{{item.text}}</text>
+				<view v-for="(nav, navIndex) in pageInfo.navList" :key="navIndex" class="nav-card border-box flex-col">
+					<text class="title">{{ nav.title }}</text>
+					<view class="item-nav border-box flex-row" v-for="(item, itemIndex) in nav.item_list"
+						:key="itemIndex" hover-class="item-nav__hover">
+						<text class="iconfont">{{ item.unicode }}</text>
+						<text class="text">{{ item.text }}</text>
 						<text class="iconfont">&#xe628;</text>
 					</view>
 				</view>
@@ -221,19 +217,31 @@
 			}
 		}
 
-		.other {
+		.edit {
 			width: 100%;
 			padding: $ele-padding;
 			font-size: 30rpx;
 			color: #fff;
 
-			.default {
+			.block {
 				align-items: center;
 				color: #ddd;
 				font-weight: bold;
 
-				.desc {
+				.iconfont {
+					font-size: 40rpx;
+				}
+
+				.block__content {
 					padding-left: $ele-padding;
+
+					.text {
+						font-size: 30rpx;
+					}
+
+					.desc {
+						font-size: 20rpx;
+					}
 				}
 			}
 		}
@@ -253,9 +261,14 @@
 			display: inline-block;
 			width: 100%;
 			padding: $ele-padding;
-			background-color: #ddd;
+			background-color: $uni-color-primary;
 			font-size: 30rpx;
 			font-weight: bold;
+			color: #fff;
+		}
+
+		.item-nav__hover {
+			background-color: #ddd;
 		}
 
 		.item-nav {
@@ -277,7 +290,7 @@
 			.iconfont {
 				&:nth-child(3) {
 					position: absolute;
-					left: 95%;
+					left: 90%;
 				}
 			}
 		}

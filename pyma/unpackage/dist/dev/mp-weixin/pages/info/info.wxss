@@ -75,19 +75,28 @@
 .profile-card .avatar-wrapper .menu-btn__hover {
   transform: scale(1.2);
 }
-.profile-card .other {
+.profile-card .edit {
   width: 100%;
   padding: 20rpx;
   font-size: 30rpx;
   color: #fff;
 }
-.profile-card .other .default {
+.profile-card .edit .block {
   align-items: center;
   color: #ddd;
   font-weight: bold;
 }
-.profile-card .other .default .desc {
+.profile-card .edit .block .iconfont {
+  font-size: 40rpx;
+}
+.profile-card .edit .block .block__content {
   padding-left: 20rpx;
+}
+.profile-card .edit .block .block__content .text {
+  font-size: 30rpx;
+}
+.profile-card .edit .block .block__content .desc {
+  font-size: 20rpx;
 }
 .nav-card {
   width: 95%;
@@ -104,9 +113,13 @@
   display: inline-block;
   width: 100%;
   padding: 20rpx;
-  background-color: #ddd;
+  background-color: #1A4190;
   font-size: 30rpx;
   font-weight: bold;
+  color: #fff;
+}
+.nav-card .item-nav__hover {
+  background-color: #ddd;
 }
 .nav-card .item-nav {
   width: 100%;
@@ -124,7 +137,7 @@
 }
 .nav-card .item-nav .iconfont:nth-child(3) {
   position: absolute;
-  left: 95%;
+  left: 90%;
 }
 .popup-content {
   padding: 0 40rpx;

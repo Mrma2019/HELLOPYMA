@@ -69,7 +69,6 @@
 
 <script>
 	import weatherStore from '@/store/weatherStore.js';
-	import formatStore from '@/store/formatStore.js';
 	import getPageInfo from './index.js';
 	import formatDate from '@/utils/format.js'
 
@@ -78,7 +77,8 @@
 			return {
 				pageInfo: {},
 				navigatorHeight: 0,
-				footer: '数据来源：和风天气Api'
+				footer: '数据来源：和风天气Api',
+				date: ''
 			}
 		},
 		methods: {
@@ -88,6 +88,17 @@
 		},
 		async onLoad() {
 			this.pageInfo = await getPageInfo();
+			const eventChannel = this.getOpenerEventChannel();
+			eventChannel.on('acceptDataFromOpenerPage', (data) => {
+				// console.log('接收到的数据:', data.dateInfo);
+				const dateInfo = data.dateInfo;
+				const {
+					date,
+					time,
+					day
+				} = dateInfo;
+				this.date = `${date} ${day}`
+			});
 		},
 
 		onShow() {
@@ -120,10 +131,6 @@
 					windSpeed: `${data?.windSpeed || '--'}Km/h`,
 					feelsLike: `${data?.feelsLike || '--'}℃`
 				};
-			},
-			date() {
-				const data = formatStore.store.data;
-				return `(${data.prefix}${data.date} ${data.day})`;
 			}
 		}
 	}

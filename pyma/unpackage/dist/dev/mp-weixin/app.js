@@ -2,7 +2,6 @@
 Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
 const common_vendor = require("./common/vendor.js");
 const utils_weather = require("./utils/weather.js");
-require("./store/formatStore.js");
 const utils_system = require("./utils/system.js");
 const store_userStore = require("./store/userStore.js");
 if (!Math) {
@@ -28,7 +27,7 @@ const _sfc_main = {
     }
   },
   onHide: function() {
-    common_vendor.index.__f__("log", "at App.vue:29", "App Hide");
+    common_vendor.index.__f__("log", "at App.vue:30", "App Hide");
     clearInterval(this.formatTimer);
   },
   methods: {
@@ -36,7 +35,7 @@ const _sfc_main = {
       common_vendor.index.getStorage({
         key: "userInfo",
         success: (res) => {
-          common_vendor.index.__f__("log", "at App.vue:37", "storage", res.data);
+          common_vendor.index.__f__("log", "at App.vue:38", "storage", res.data);
           store_userStore.userStore.data = res.data;
         }
       });

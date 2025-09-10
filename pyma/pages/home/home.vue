@@ -26,7 +26,7 @@
 								<text class="item-temp">{{weatherInfo?.temp || '--'}}</text>
 								<view class="weather-card__time flex-col">
 									<text class="item-icon__temp iconfont">&#xe9a6;</text>
-									<text class="item-time">{{time || '--'}}</text>
+									<text class="item-time">{{dateInfo.time || '--'}}</text>
 								</view>
 							</view>
 							<view class="info-text flex-col">
@@ -41,9 +41,9 @@
 								<text>{{weatherInfo?.dateTitle || '--'}}</text>
 							</view>
 							<view class="item-date flex-row">
-								<view class="date-item" v-for="item, index in date" :key="index">
-									<text class="text">{{item['value'] || '--'}}</text>
-									<text class="desc">{{item['label']}}</text>
+								<view class="date-item" v-for="(item, index) in dateParts" :key="index">
+									<text class="text">{{ item.value }}</text>
+									<text class="desc">{{ item.label }}</text>
 								</view>
 							</view>
 						</view>
@@ -58,7 +58,7 @@
 						</view>
 						<view class="sub-btn__box flex-col">
 							<view class="sub-btn button border-box flex-col" v-for="item, index in pageInfo?.subBtns"
-								:key="index" @click="onClick(item)">
+								:key="index" @click="openPopup(item)">
 								<text class="text">{{item?.text || '--'}}</text>
 								<text class="desc">{{item?.desc || '--'}}</text>
 								<text class="iconfont">{{item?.unicode}}</text>
@@ -72,10 +72,10 @@
 				</view>
 			</view>
 		</scroll-view>
-		<view class="btn-post flex-row" hover-class="btn-post__hover"
+		<!-- <view class="btn-post flex-row" hover-class="btn-post__hover"
 			:style="{bottom: contentPanelPaddingBottom + 20 + 'px', right: 20 + 'px'}">
-			<text class="iconfont">&#xe63a;</text>
-		</view>
+			<text class="iconfont">&#xe605;</text>
+		</view> -->
 		<uni-popup v-model:show="is_popup" height="65">
 		</uni-popup>
 		<uni-tab-bar class="tab-bar__component" @sendTabBarHeight="setContentPanelPaddingBottom" />
@@ -84,9 +84,8 @@
 
 <script>
 	import weatherStore from '@/store/weatherStore.js';
-	import formatStore from '@/store/formatStore.js';
 	import getPageInfo from './index.js';
-	import formatDate  from '@/utils/format.js';
+	import formatDate from '@/utils/format.js';
 
 	export default {
 		data() {
@@ -97,7 +96,8 @@
 				gap: 10,
 				pageInfo: {},
 				is_popup: false,
-				refresherTriggered: false
+				refresherTriggered: false,
+				dateInfo: {}
 			}
 		},
 
@@ -111,16 +111,19 @@
 					// console.log('swiper的高度', this.swiperHeight);
 				}).exec();
 			});
-
 			//格式化日期
-			formatDate();
-			this.formatTimer = setInterval(() => {
-				formatDate();
+			this.dateInfo = formatDate();
+		},
+
+		onShow() {
+			this.formatDateTimer = setInterval(() => {
+				this.dateInfo = formatDate();
 			}, 600);
 		},
 
 		onHide() {
 			this.is_popup = false;
+			clearInterval(this.formatDateTimer);
 		},
 
 		methods: {
@@ -136,8 +139,14 @@
 			navigatorTo(e) {
 				const pagepath = e.currentTarget.dataset.pagepath;
 				// console.log(pagepath);
+				const that = this;
 				uni.navigateTo({
-					url: `${pagepath}`
+					url: `${pagepath}`,
+					success(res) {
+						res.eventChannel.emit('acceptDataFromOpenerPage', {
+							dateInfo: that.dateInfo
+						});
+					}
 				});
 			},
 			async onRefresher() {
@@ -149,10 +158,10 @@
 				return new Promise(resolve => {
 					setTimeout(() => {
 						resolve();
-					}, 1000);
+					}, 600);
 				});
 			},
-			onClick(item) {
+			openPopup(item) {
 				// console.log('popup');
 				if (item.is_popup) {
 					this.is_popup = true;
@@ -174,32 +183,18 @@
 					icon: data.icon
 				}
 			},
-			date() {
-				const data = formatStore.store.data;
-				// console.log(data);
-				const date = (data.date.split('-')).map((item, index) => {
-					let label = '';
-					switch (index) {
-						case 0:
-							label = 'Year';
-							break;
-						case 1:
-							label = 'Month';
-							break;
-						case 2:
-							label = 'Date';
-							break;
-					}
+			dateParts() {
+				const labels = ['Year', 'Month', 'Date'];
+				if (!this.dateInfo.date) return [];
+
+				return this.dateInfo.date.split('-').map((val, i) => {
+					// 年份只取后两位
+					if (i === 0) val = val.slice(-2);
 					return {
-						value: item,
-						label: label
+						value: val || '--',
+						label: labels[i] || ''
 					};
 				});
-				return date
-			},
-			time() {
-				const data = formatStore.store.data;
-				return data.time;
 			}
 		}
 	}

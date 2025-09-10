@@ -6,32 +6,39 @@ const pageInfoRaw = {
 	navColor: "black",
 	isBack: false,
 	navList: [{
-			unicode: '&#xe669;',
-			text: '活动'
+			title: '我的发布',
+			item_list: [{
+					unicode: '&#xe669;',
+					text: '活动'
+				},
+				{
+					unicode: '&#xe605;',
+					text: '动态'
+				}
+			]
 		},
 		{
-			unicode: '&#xe7ae;',
-			text: '动态'
+			title: '设置',
+			item_list: [{
+					unicode: '&#xe616;',
+					text: '退出登录'
+				}
+			]
 		}
-	],
-	sysNavList: [{
-		unicode: '&#xe616;',
-		text: '退出登录'
-	}]
-}
+	]
+};
 
 export default async function getPageInfo() {
 	const pageInfo = {
 		...pageInfoRaw,
-		navList: pageInfoRaw.navList.map(item => ({
-			...item,
-			unicode: decodeUnicodeEntity(item.unicode)
-		})),
-		sysNavList: pageInfoRaw.sysNavList.map(item => ({
-			...item,
-			unicode: decodeUnicodeEntity(item.unicode)
+		navList: pageInfoRaw.navList.map(category => ({
+			...category,
+			item_list: category.item_list.map(item => ({
+				...item,
+				unicode: decodeUnicodeEntity(item.unicode) // 解码 item_list 里的 unicode
+			}))
 		}))
-	}
+	};
 
 	return pageInfo;
 }

@@ -40,16 +40,14 @@ if (!Array) {
   _component_template();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
-  return common_vendor.e({
-    a: $props.show
-  }, $props.show ? {
-    b: common_vendor.o((...args) => $options.close && $options.close(...args))
-  } : {}, {
+  return {
+    a: $props.show,
+    b: common_vendor.o((...args) => $options.close && $options.close(...args)),
     c: common_vendor.o((...args) => $options.close && $options.close(...args)),
     d: common_vendor.o(() => {
     }),
     e: common_vendor.s($options.style)
-  });
+  };
 }
 const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-4bcd74eb"]]);
 wx.createComponent(Component);
