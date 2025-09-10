@@ -22,6 +22,13 @@
 		},
 		onShow: function() {
 			console.log('App Show');
+
+			const lastTime = uni.getStorageSync('lastGetWeatherTime' || 0);
+			const now = new Date();
+			if (now - lastTime > 30 * 60 * 1000) {
+				getWeather();
+				uni.setStorageSync('lastGetWeatherTime', now);
+			}
 		},
 		onHide: function() {
 			console.log('App Hide');
