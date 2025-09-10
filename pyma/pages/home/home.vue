@@ -86,6 +86,7 @@
 	import weatherStore from '@/store/weatherStore.js';
 	import formatStore from '@/store/formatStore.js';
 	import getPageInfo from './index.js';
+	import formatDate  from '@/utils/format.js';
 
 	export default {
 		data() {
@@ -110,6 +111,12 @@
 					// console.log('swiper的高度', this.swiperHeight);
 				}).exec();
 			});
+
+			//格式化日期
+			formatDate();
+			this.formatTimer = setInterval(() => {
+				formatDate();
+			}, 600);
 		},
 
 		onHide() {

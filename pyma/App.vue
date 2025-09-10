@@ -12,11 +12,6 @@
 			getWeather();
 			//系统信息
 			getSystemInfo();
-			//格式化日期
-			formatDate();
-			this.formatTimer = setInterval(() => {
-				formatDate();
-			}, 600);
 			// 获取缓存的用户信息
 			this.getUserInfo();
 		},

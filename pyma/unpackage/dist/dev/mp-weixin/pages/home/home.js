@@ -3,6 +3,7 @@ const common_vendor = require("../../common/vendor.js");
 const store_weatherStore = require("../../store/weatherStore.js");
 const store_formatStore = require("../../store/formatStore.js");
 const pages_home_index = require("./index.js");
+const utils_format = require("../../utils/format.js");
 const _sfc_main = {
   data() {
     return {
@@ -23,6 +24,10 @@ const _sfc_main = {
         this.swiperHeight = rect.height;
       }).exec();
     });
+    utils_format.formatDate();
+    this.formatTimer = setInterval(() => {
+      utils_format.formatDate();
+    }, 600);
   },
   onHide() {
     this.is_popup = false;
