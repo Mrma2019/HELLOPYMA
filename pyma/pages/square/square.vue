@@ -1,6 +1,10 @@
 <template>
-	<view>
-		
+	<view class="content">
+		<scroll-view id="page-content" scroll-y>
+			<view class="content-wrapper">
+				
+			</view>
+		</scroll-view>
 	</view>
 </template>
 
@@ -8,11 +12,11 @@
 	export default {
 		data() {
 			return {
-				
+
 			}
 		},
 		methods: {
-			
+
 		}
 	}
 </script>
