@@ -1,1 +1,1 @@
-<view></view>
+<view class="container data-v-6bc6c6b7"><view class="header data-v-6bc6c6b7" style="{{'background-color:' + b}}"><view class="header-title data-v-6bc6c6b7">{{a}}</view></view><scroll-view class="scroll-content data-v-6bc6c6b7" scroll-y bindscroll="{{d}}"><view class="banner data-v-6bc6c6b7"></view><view wx:for="{{c}}" wx:for-item="i" wx:key="b" class="item data-v-6bc6c6b7"> Item {{i.a}}</view></scroll-view></view>

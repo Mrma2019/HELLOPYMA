@@ -36,7 +36,7 @@
 #page-content.data-v-54774d74 {
   background: linear-gradient(to bottom, #1A4190, #e8e8e8);
 }
-#page-content .content-center.data-v-54774d74 {
+#page-content .content-panel.data-v-54774d74 {
   align-items: center;
 }
 .location.data-v-54774d74 {

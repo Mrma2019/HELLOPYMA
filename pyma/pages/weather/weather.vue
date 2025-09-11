@@ -4,7 +4,7 @@
 			:color="pageInfo?.navColor" , :is-back="pageInfo?.isBack" @sendNavBarHeight="getNavHeight"></uni-nav-bar>
 		<view class="content-wrapper fixed-box" :style="{paddingTop: navigatorHeight + 'px'}">
 			<scroll-view id="page-content" class="border-box" scroll-y>
-				<view class="content-center flex-col" style="padding-bottom: 100rpx;">
+				<view class="content-panel flex-col" style="padding-bottom: 100rpx;">
 					<view class="location flex-row">
 						<view class="flex-row" style="height: 100%; align-items: center;">
 							<text class="addr">{{weatherInfo.location?.name || '--'}}</text>
@@ -156,7 +156,7 @@
 	#page-content {
 		background: linear-gradient(to bottom, $uni-color-primary, #e8e8e8);
 
-		.content-center {
+		.content-panel {
 			align-items: center;
 		}
 	}
