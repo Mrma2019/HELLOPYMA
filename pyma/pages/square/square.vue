@@ -1,10 +1,10 @@
 <template>
 	<view class="content">
-		<view class="header" :style="{height: systemInfo.navBarHeight + 'px', transform:`translateY(${translateY})`}">
+		<view class="header" :style="{height: systemInfo.navBarHeight + 'px', transform:`translateY(${translateY})`, opacity: opacity}">
 
 		</view>
 		<scroll-view class="scroll-box" scroll-y @scroll="onScroll"
-			:style="{height: '100vh', marginTop: systemInfo.navBarHeight + 'px'}">
+			:style="{height: '100vh', paddingTop: scrollPaddingTop + 'px'}">
 			<view v-for="item, index in 100" :key="index">
 				<text>{{item}}</text>
 			</view>
@@ -19,7 +19,8 @@
 		data() {
 			return {
 				opacity: 1,
-				translateY: '0px'
+				translateY: '0px',
+				scrollPaddingTop: systemStore.data.navBarHeight
 			};
 		},
 		methods: {
@@ -32,6 +33,10 @@
 				const maxScrollTop = this.systemInfo.navBarHeight;
 				const offset = Math.min(current, maxScrollTop);
 				this.translateY = -offset + 'px';
+				
+				this.scrollPaddingTop = Math.min(this.systemInfo.navBarHeight - offset, this.systemInfo.navBarHeight);
+				
+				console.log(this.scrollPaddingTop);
 			}
 		},
 		computed: {
