@@ -70,11 +70,13 @@ const _sfc_main = {
   // },
   computed: {
     systemInfo() {
-      const data = store_systemStore.systemStore.data;
-      common_vendor.index.__f__("log", "at pages/info/info.vue:143", "inof", data);
+      const {
+        navBarHeight,
+        screenWidth
+      } = store_systemStore.systemStore.data;
       return {
-        navBarHeight: data.navBarHeight,
-        screenWidth: data.screenWidth
+        navBarHeight,
+        screenWidth
       };
     },
     userInfo() {

@@ -139,11 +139,14 @@
 		// },
 		computed: {
 			systemInfo() {
-				const data = systemStore.data;
-				console.log('inof', data);
+				const {
+					navBarHeight,
+					screenWidth
+				} = systemStore.data;
+				// console.log('inof', data);
 				return {
-					navBarHeight: data.navBarHeight,
-					screenWidth: data.screenWidth
+					navBarHeight,
+					screenWidth
 				}
 			},
 			userInfo() {

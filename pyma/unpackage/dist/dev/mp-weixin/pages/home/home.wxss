@@ -82,7 +82,7 @@
 }
 .content-panel .info__card .weather-info .info-text.data-v-07e72d3c {
   align-items: center;
-  font-size: 25rpx;
+  font-size: 22rpx;
 }
 .content-panel .info__card .date-info.data-v-07e72d3c {
   flex: 1;

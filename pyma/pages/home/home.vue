@@ -270,7 +270,7 @@
 
 				.info-text {
 					align-items: center;
-					font-size: 25rpx;
+					font-size: 22rpx;
 				}
 			}
 
