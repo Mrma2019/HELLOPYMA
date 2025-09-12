@@ -1,6 +1,7 @@
 <template>
 	<view class="content">
-		<view class="header" :style="{height: systemInfo.navBarHeight + 'px', transform:`translateY(${translateY})`, opacity: opacity}">
+		<view class="header"
+			:style="{height: systemInfo.navBarHeight + 'px', transform:`translateY(${translateY})`, opacity: opacity}">
 
 		</view>
 		<scroll-view class="scroll-box" scroll-y @scroll="onScroll"
@@ -12,7 +13,6 @@
 	</view>
 </template>
 
-
 <script>
 	import systemStore from '@/store/systemStore.js';
 	export default {
@@ -20,23 +20,36 @@
 			return {
 				opacity: 1,
 				translateY: '0px',
-				scrollPaddingTop: systemStore.data.navBarHeight
+				scrollPaddingTop: systemStore.data.navBarHeight,
+				lastScrollTop: 0
 			};
 		},
 		methods: {
 			onScroll(e) {
-				// console.log(e.detail.scrollTop);
-				let current = e.detail.scrollTop;
-
+				console.log(e.detail.scrollTop);
 				if (current < 0) current = 0;
 
-				const maxScrollTop = this.systemInfo.navBarHeight;
-				const offset = Math.min(current, maxScrollTop);
-				this.translateY = -offset + 'px';
-				
-				this.scrollPaddingTop = Math.min(this.systemInfo.navBarHeight - offset, this.systemInfo.navBarHeight);
-				
-				console.log(this.scrollPaddingTop);
+				let lastScrollTop = 0;
+				let current = e.detail.scrollTop;
+
+				const last = this.lastScrollTop;
+
+				if (current > last) {
+					console.log('向下滚');
+					const maxScrollTop = this.systemInfo.navBarHeight;
+					const offset = Math.min(current, maxScrollTop);
+					this.translateY = -offset + 'px';
+
+					this.scrollPaddingTop = Math.min(this.systemInfo.navBarHeight - offset, this.systemInfo.navBarHeight);
+				} else {
+					console.log('向上滚');
+				}
+
+				// 更新 lastScrollTop
+				this.lastScrollTop = current;
+
+
+
 			}
 		},
 		computed: {

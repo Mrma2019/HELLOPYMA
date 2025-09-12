@@ -6,19 +6,27 @@ const _sfc_main = {
     return {
       opacity: 1,
       translateY: "0px",
-      scrollPaddingTop: store_systemStore.systemStore.data.navBarHeight
+      scrollPaddingTop: store_systemStore.systemStore.data.navBarHeight,
+      lastScrollTop: 0
     };
   },
   methods: {
     onScroll(e) {
-      let current = e.detail.scrollTop;
+      common_vendor.index.__f__("log", "at pages/square/square.vue:29", e.detail.scrollTop);
       if (current < 0)
         current = 0;
-      const maxScrollTop = this.systemInfo.navBarHeight;
-      const offset = Math.min(current, maxScrollTop);
-      this.translateY = -offset + "px";
-      this.scrollPaddingTop = Math.min(this.systemInfo.navBarHeight - offset, this.systemInfo.navBarHeight);
-      common_vendor.index.__f__("log", "at pages/square/square.vue:39", this.scrollPaddingTop);
+      let current = e.detail.scrollTop;
+      const last = this.lastScrollTop;
+      if (current > last) {
+        common_vendor.index.__f__("log", "at pages/square/square.vue:38", "向下滚");
+        const maxScrollTop = this.systemInfo.navBarHeight;
+        const offset = Math.min(current, maxScrollTop);
+        this.translateY = -offset + "px";
+        this.scrollPaddingTop = Math.min(this.systemInfo.navBarHeight - offset, this.systemInfo.navBarHeight);
+      } else {
+        common_vendor.index.__f__("log", "at pages/square/square.vue:45", "向上滚");
+      }
+      this.lastScrollTop = current;
     }
   },
   computed: {
