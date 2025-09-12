@@ -31,5 +31,8 @@
   left: 0;
   right: 0;
   z-index: 10;
-  transition: transform 0.15s linear;
+  transition: transform 0.2s inherit, opacity 0.2s ease;
+}
+.scroll-box.data-v-6bc6c6b7 {
+  height: 100vh;
 }

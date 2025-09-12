@@ -1,11 +1,11 @@
 <template>
 	<view class="content">
-		<view class="header"
-			:style="{height: systemInfo.navBarHeight + 'px', transform:`translateY(${translateY})`, opacity: opacity}">
+		<!-- 头部 -->
+		<view class="header" :style="{height: headerHeight + 'px', transform: `translateY(${headerTranslate})`}">
 
 		</view>
 		<scroll-view class="scroll-box" scroll-y @scroll="onScroll"
-			:style="{height: '100vh', paddingTop: scrollPaddingTop + 'px'}">
+			:style="{transform: `translateY(${contentTranslate})`}">
 			<view v-for="item, index in 100" :key="index">
 				<text>{{item}}</text>
 			</view>
@@ -18,38 +18,32 @@
 	export default {
 		data() {
 			return {
-				opacity: 1,
-				translateY: '0px',
-				scrollPaddingTop: systemStore.data.navBarHeight,
-				lastScrollTop: 0
+				headerHeight: 0,
+				lastScrollTop: 0,
+				headerTranslate: '0px',
+				contentTranslate: '0px',
 			};
+		},
+		mounted() {
+			const headerHeight = this.systemInfo.navBarHeight;
+			this.headerHeight = headerHeight;
+			this.contentTranslate = `${headerHeight}px`;
 		},
 		methods: {
 			onScroll(e) {
-				console.log(e.detail.scrollTop);
-				if (current < 0) current = 0;
-
-				let lastScrollTop = 0;
-				let current = e.detail.scrollTop;
-
+				const current = e.detail.scrollTop;
 				const last = this.lastScrollTop;
+				if (current < 0) return;
+				const offset = Math.min(current, this.headerHeight);
 
 				if (current > last) {
-					console.log('向下滚');
-					const maxScrollTop = this.systemInfo.navBarHeight;
-					const offset = Math.min(current, maxScrollTop);
-					this.translateY = -offset + 'px';
-
-					this.scrollPaddingTop = Math.min(this.systemInfo.navBarHeight - offset, this.systemInfo.navBarHeight);
+					this.headerTranslate = `${offset * -1}px`;
+					this.contentTranslate = `${this.headerHeight - offset}`;
 				} else {
-					console.log('向上滚');
+					
 				}
 
-				// 更新 lastScrollTop
 				this.lastScrollTop = current;
-
-
-
 			}
 		},
 		computed: {
@@ -62,7 +56,7 @@
 				};
 			}
 		}
-	}
+	};
 </script>
 
 <style lang="scss" scoped>
@@ -74,6 +68,11 @@
 		left: 0;
 		right: 0;
 		z-index: 10;
-		transition: transform 0.15s linear;
+		transition: transform 0.2s inherit, opacity 0.2s ease;
+	}
+
+	.scroll-box {
+		height: 100vh;
+		// transition: transform 0.2s ease;
 	}
 </style>
