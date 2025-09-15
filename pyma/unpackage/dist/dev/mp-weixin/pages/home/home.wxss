@@ -54,11 +54,11 @@
   width: 95%;
 }
 .content-panel .info__card.data-v-07e72d3c {
-  height: 220rpx;
+  height: 210rpx;
   justify-content: space-between;
 }
 .content-panel .info__card .weather-info.data-v-07e72d3c {
-  width: 220rpx;
+  width: 210rpx;
   position: relative;
   padding: 18rpx 28rpx;
   background-color: #fff;

@@ -237,11 +237,11 @@
 		width: $panel-width;
 
 		.info__card {
-			height: 220rpx;
+			height: 210rpx;
 			justify-content: space-between;
 
 			.weather-info {
-				width: 220rpx;
+				width: 210rpx;
 				position: relative;
 				padding: 18rpx 28rpx;
 				background-color: #fff;

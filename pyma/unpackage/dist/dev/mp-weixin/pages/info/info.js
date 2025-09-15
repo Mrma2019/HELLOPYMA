@@ -59,7 +59,7 @@ const _sfc_main = {
   },
   async mounted() {
     this.pageInfo = await pages_info_index.getPageInfo();
-    if (this.systemInfo.screenWidth >= 768) {
+    if (store_systemStore.systemStore.data.screenWidth >= 768) {
       common_vendor.index.__f__("log", "at pages/info/info.vue:132", "screenWidth>=768");
       this.popupBoxHeight = "60";
     }
@@ -70,10 +70,9 @@ const _sfc_main = {
   // },
   computed: {
     systemInfo() {
-      const {
-        navBarHeight,
-        screenWidth
-      } = store_systemStore.systemStore.data;
+      const data = store_systemStore.systemStore.data;
+      const navBarHeight = data.navBarHeight;
+      const screenWidth = data.sysInfo.screenWidth;
       return {
         navBarHeight,
         screenWidth

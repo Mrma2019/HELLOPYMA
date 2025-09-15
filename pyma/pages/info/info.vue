@@ -128,7 +128,7 @@
 		async mounted() {
 			this.pageInfo = await getPageInfo();
 			// 当屏幕宽度大于等于768px时,改变默认的高度
-			if (this.systemInfo.screenWidth >= 768) {
+			if (systemStore.data.screenWidth >= 768) {
 				console.log('screenWidth>=768');
 				this.popupBoxHeight = '60';
 			}
@@ -139,10 +139,10 @@
 		// },
 		computed: {
 			systemInfo() {
-				const {
-					navBarHeight,
-					screenWidth
-				} = systemStore.data;
+				const data = systemStore.data;
+
+				const navBarHeight = data.navBarHeight;
+				const screenWidth = data.sysInfo.screenWidth;
 				// console.log('inof', data);
 				return {
 					navBarHeight,
@@ -271,7 +271,7 @@
 		}
 
 		.item-nav__hover {
-			background-color: #ddd;
+			// background-color: #ddd;
 		}
 
 		.item-nav {
