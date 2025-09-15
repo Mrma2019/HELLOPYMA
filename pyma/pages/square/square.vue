@@ -1,7 +1,8 @@
 <template>
 	<view class="content">
 		<!-- 头部 -->
-		<view class="header" :style="{height: headerHeight + 'px', transform: `translateY(${headerTranslate})`}">
+		<view class="header"
+			:style="{height: headerHeight + 'px', transform: `translateY(${headerTranslate})`, opacity: opacity}">
 
 		</view>
 		<scroll-view class="scroll-box" scroll-y @scroll="onScroll"
@@ -22,6 +23,7 @@
 				lastScrollTop: 0,
 				headerTranslate: '0px',
 				contentTranslate: '0px',
+				opacity: 1
 			};
 		},
 		mounted() {
@@ -31,17 +33,16 @@
 		},
 		methods: {
 			onScroll(e) {
-				const current = e.detail.scrollTop;
-				const last = this.lastScrollTop;
-				if (current < 0) return;
+				const current = Math.max(e.detail.scrollTop, 0);
 				const offset = Math.min(current, this.headerHeight);
 
-				if (current > last) {
-					this.headerTranslate = `${offset * -1}px`;
-					this.contentTranslate = `${this.headerHeight - offset}`;
-				} else {
-					
-				}
+				const isScrollingDown = current > this.lastScrollTop;
+
+				this.headerTranslate = isScrollingDown ? `-${offset}px` : `0px`;
+				this.contentTranslate = isScrollingDown ?
+					`${this.headerHeight - offset}px` :
+					`${this.headerHeight}px`;
+				this.opacity = isScrollingDown ? 1 - offset / this.headerHeight : 1;
 
 				this.lastScrollTop = current;
 			}
@@ -68,11 +69,11 @@
 		left: 0;
 		right: 0;
 		z-index: 10;
-		transition: transform 0.2s inherit, opacity 0.2s ease;
+		transition: transform 0.2s ease-out, opacity 0.2s ease;
 	}
 
 	.scroll-box {
 		height: 100vh;
-		// transition: transform 0.2s ease;
+		transition: transform 0.2s ease;
 	}
 </style>

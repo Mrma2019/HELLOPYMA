@@ -7,7 +7,8 @@ const _sfc_main = {
       headerHeight: 0,
       lastScrollTop: 0,
       headerTranslate: "0px",
-      contentTranslate: "0px"
+      contentTranslate: "0px",
+      opacity: 1
     };
   },
   mounted() {
@@ -17,15 +18,12 @@ const _sfc_main = {
   },
   methods: {
     onScroll(e) {
-      const current = e.detail.scrollTop;
-      const last = this.lastScrollTop;
-      if (current < 0)
-        return;
+      const current = Math.max(e.detail.scrollTop, 0);
       const offset = Math.min(current, this.headerHeight);
-      if (current > last) {
-        this.headerTranslate = `${offset * -1}px`;
-        this.contentTranslate = `${this.headerHeight - offset}`;
-      }
+      const isScrollingDown = current > this.lastScrollTop;
+      this.headerTranslate = isScrollingDown ? `-${offset}px` : `0px`;
+      this.contentTranslate = isScrollingDown ? `${this.headerHeight - offset}px` : `${this.headerHeight}px`;
+      this.opacity = isScrollingDown ? 1 - offset / this.headerHeight : 1;
       this.lastScrollTop = current;
     }
   },
@@ -44,14 +42,15 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
     a: $data.headerHeight + "px",
     b: `translateY(${$data.headerTranslate})`,
-    c: common_vendor.f(100, (item, index, i0) => {
+    c: $data.opacity,
+    d: common_vendor.f(100, (item, index, i0) => {
       return {
         a: common_vendor.t(item),
         b: index
       };
     }),
-    d: common_vendor.o((...args) => $options.onScroll && $options.onScroll(...args)),
-    e: `translateY(${$data.contentTranslate})`
+    e: common_vendor.o((...args) => $options.onScroll && $options.onScroll(...args)),
+    f: `translateY(${$data.contentTranslate})`
   };
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-6bc6c6b7"]]);
