@@ -31,9 +31,11 @@
   left: 0;
   right: 0;
   z-index: 10;
-  transition: transform 0.2s ease-out, opacity 0.2s ease;
+  transition: transform 0.25s ease-out, opacity 0.25s ease;
 }
 .scroll-box.data-v-6bc6c6b7 {
   height: 100vh;
-  transition: transform 0.2s ease;
+  box-sizing: border-box;
+  transition: padding 0.25s ease;
+  /* 让 padding 过渡自然 */
 }

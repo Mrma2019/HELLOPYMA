@@ -3,10 +3,9 @@
 		<!-- 头部 -->
 		<view class="header"
 			:style="{height: headerHeight + 'px', transform: `translateY(${headerTranslate})`, opacity: opacity}">
-
 		</view>
-		<scroll-view class="scroll-box" scroll-y @scroll="onScroll"
-			:style="{transform: `translateY(${contentTranslate})`}">
+
+		<scroll-view class="scroll-box" scroll-y @scroll="onScroll" :style="{paddingTop: scrollPaddingTop + 'px'}">
 			<view v-for="item, index in 100" :key="index">
 				<text>{{item}}</text>
 			</view>
@@ -22,14 +21,14 @@
 				headerHeight: 0,
 				lastScrollTop: 0,
 				headerTranslate: '0px',
-				contentTranslate: '0px',
+				scrollPaddingTop: 0,
 				opacity: 1
 			};
 		},
 		mounted() {
 			const headerHeight = this.systemInfo.navBarHeight;
 			this.headerHeight = headerHeight;
-			this.contentTranslate = `${headerHeight}px`;
+			this.scrollPaddingTop = headerHeight; // 初始撑开
 		},
 		methods: {
 			onScroll(e) {
@@ -38,11 +37,12 @@
 
 				const isScrollingDown = current > this.lastScrollTop;
 
+				// header 上移
 				this.headerTranslate = isScrollingDown ? `-${offset}px` : `0px`;
-				this.contentTranslate = isScrollingDown ?
-					`${this.headerHeight - offset}px` :
-					`${this.headerHeight}px`;
 				this.opacity = isScrollingDown ? 1 - offset / this.headerHeight : 1;
+
+				// 🚀 动态 padding-top
+				this.scrollPaddingTop = this.headerHeight - offset * 2;
 
 				this.lastScrollTop = current;
 			}
@@ -69,11 +69,13 @@
 		left: 0;
 		right: 0;
 		z-index: 10;
-		transition: transform 0.2s ease-out, opacity 0.2s ease;
+		transition: transform 0.25s ease-out, opacity 0.25s ease;
 	}
 
 	.scroll-box {
 		height: 100vh;
-		transition: transform 0.2s ease;
+		box-sizing: border-box;
+		transition: padding 0.25s ease;
+		/* 让 padding 过渡自然 */
 	}
 </style>

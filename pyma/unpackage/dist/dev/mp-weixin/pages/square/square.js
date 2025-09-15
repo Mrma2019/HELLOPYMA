@@ -7,14 +7,14 @@ const _sfc_main = {
       headerHeight: 0,
       lastScrollTop: 0,
       headerTranslate: "0px",
-      contentTranslate: "0px",
+      scrollPaddingTop: 0,
       opacity: 1
     };
   },
   mounted() {
     const headerHeight = this.systemInfo.navBarHeight;
     this.headerHeight = headerHeight;
-    this.contentTranslate = `${headerHeight}px`;
+    this.scrollPaddingTop = headerHeight;
   },
   methods: {
     onScroll(e) {
@@ -22,8 +22,8 @@ const _sfc_main = {
       const offset = Math.min(current, this.headerHeight);
       const isScrollingDown = current > this.lastScrollTop;
       this.headerTranslate = isScrollingDown ? `-${offset}px` : `0px`;
-      this.contentTranslate = isScrollingDown ? `${this.headerHeight - offset}px` : `${this.headerHeight}px`;
       this.opacity = isScrollingDown ? 1 - offset / this.headerHeight : 1;
+      this.scrollPaddingTop = this.headerHeight - offset * 2;
       this.lastScrollTop = current;
     }
   },
@@ -50,7 +50,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       };
     }),
     e: common_vendor.o((...args) => $options.onScroll && $options.onScroll(...args)),
-    f: `translateY(${$data.contentTranslate})`
+    f: $data.scrollPaddingTop + "px"
   };
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-6bc6c6b7"]]);
