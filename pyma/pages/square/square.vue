@@ -7,26 +7,40 @@
 					:style="{width: avatarWidth + 'px', height: avatarWidth + 'px', top: avatarTop + 'px'}"></image>
 			</view>
 			<view class="tap-bar border-box flex-row">
-				<view class="tap-item" data-index="0"><text class="text">推荐</text></view>
-				<view class="tap-item" data-index="1"><text class="text">关注</text></view>
+				<view :class="['tap-item', index==currentTap ? 'active':'']" v-for="item, index in pageInfo.tapList"
+					:key="index" @click="switchTap(index)"><text class="text">{{item}}</text></view>
 			</view>
 		</view>
 
-		<scroll-view id="page-content" class="scroll-box" scroll-y @scroll="onScroll"
-			:style="{paddingTop: scrollPaddingTop + 'px'}">
-		</scroll-view>
+		<swiper indicator-dots="{{false}}" autoplay="{{false}}" :current="currentTap" style="{height: 100vh;}">
+			<swiper-item style="{height: 100vh;}">
+				<scroll-view class="scroll-box" :style="{paddingTop: scrollPaddingTop + 'px'}">
+					<view v-for="item, index in 100" :key="index">
+						<text>{{item}}</text>
+					</view>
+				</scroll-view>
+			</swiper-item>
+			<swiper-item style="{height: 100vh;}">
+				<scroll-view class="scroll-box" :style="{paddingTop: scrollPaddingTop + 'px'}">
+					<view>2</view>
+				</scroll-view>
+			</swiper-item>
+		</swiper>
 	</view>
 </template>
 
 <script>
 	import systemStore from '@/store/systemStore.js';
 	import userStore from '@/store/userStore';
+	import getPageInfo from './index.js';
+
 	export default {
 		data() {
 			return {
+				pageInfo: {},
 				headerHeight: 0,
-
 				headerTranslate: '0px',
+				currentTap: 0,
 				//scroll滚动
 				scrollPaddingTop: 0,
 				lastScrollTop: 0,
@@ -38,7 +52,9 @@
 				tapBarHeight: 0
 			};
 		},
-		mounted() {
+		async onLoad() {
+			this.pageInfo = await getPageInfo();
+
 			const query = uni.createSelectorQuery().in(this);
 			query.select('.tap-bar').boundingClientRect((res) => {
 				this.tapBarHeight = res.height;
@@ -46,7 +62,8 @@
 				const navBarHeight = systemStore.data.navBarHeight;
 				this.headerHeight = this.scrollPaddingTop = navBarHeight + this.tapBarHeight;
 
-				this.avatarTop = this.systemInfo.menuBottom - (this.systemInfo.menuHeight + this.avatarWidth) / 2;
+				this.avatarTop = this.systemInfo.menuBottom - (this.systemInfo.menuHeight + this.avatarWidth) /
+					2;
 			}).exec();
 		},
 		methods: {
@@ -68,6 +85,10 @@
 				// paddingTop 固定，不要动态减
 				this.scrollPaddingTop = this.headerHeight - offset * 1.5;
 				this.lastScrollTop = current;
+			},
+			switchTap(index) {
+				console.log('currentTap', index);
+				this.currentTap = index;
 			}
 		},
 		computed: {
@@ -121,8 +142,11 @@
 
 			.tap-item {
 				padding: 10rpx 40rpx;
-				border-bottom: 6rpx solid $uni-color-primary;
 			}
+		}
+
+		.active {
+			border-bottom: 4rpx solid $uni-color-primary;
 		}
 	}
 

@@ -46,7 +46,9 @@
 }
 .header .tap-bar .tap-item.data-v-6bc6c6b7 {
   padding: 10rpx 40rpx;
-  border-bottom: 6rpx solid #1A4190;
+}
+.header .active.data-v-6bc6c6b7 {
+  border-bottom: 4rpx solid #1A4190;
 }
 .scroll-box.data-v-6bc6c6b7 {
   height: 100vh;

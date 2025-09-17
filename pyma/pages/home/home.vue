@@ -178,7 +178,7 @@
 					temp: data.temp,
 					text: data.text,
 					windDir: `${data?.windDir || '-'} ${data?.windScale || '-'}级`,
-					humidity: `空气湿度 ${data?.humidity || '-'}`,
+					humidity: `空气湿度 ${data?.humidity || '--'}`,
 					dateTitle: '当前日期 年/月/日',
 					icon: data.icon
 				}

@@ -2,11 +2,14 @@
 const common_vendor = require("../../common/vendor.js");
 const store_systemStore = require("../../store/systemStore.js");
 const store_userStore = require("../../store/userStore.js");
+const pages_square_index = require("./index.js");
 const _sfc_main = {
   data() {
     return {
+      pageInfo: {},
       headerHeight: 0,
       headerTranslate: "0px",
+      currentTap: 0,
       //scroll滚动
       scrollPaddingTop: 0,
       lastScrollTop: 0,
@@ -17,7 +20,8 @@ const _sfc_main = {
       tapBarHeight: 0
     };
   },
-  mounted() {
+  async onLoad() {
+    this.pageInfo = await pages_square_index.getPageInfo();
     const query = common_vendor.index.createSelectorQuery().in(this);
     query.select(".tap-bar").boundingClientRect((res) => {
       this.tapBarHeight = res.height;
@@ -43,6 +47,10 @@ const _sfc_main = {
       }
       this.scrollPaddingTop = this.headerHeight - offset * 1.5;
       this.lastScrollTop = current;
+    },
+    switchTap(index) {
+      common_vendor.index.__f__("log", "at pages/square/square.vue:90", "currentTap", index);
+      this.currentTap = index;
     }
   },
   computed: {
@@ -73,10 +81,25 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     c: $data.avatarWidth + "px",
     d: $data.avatarTop + "px",
     e: $options.systemInfo.navBarHeight + "px",
-    f: `translateY(${$data.headerTranslate})`,
-    g: $data.opacity,
-    h: common_vendor.o((...args) => $options.onScroll && $options.onScroll(...args)),
-    i: $data.scrollPaddingTop + "px"
+    f: common_vendor.f($data.pageInfo.tapList, (item, index, i0) => {
+      return {
+        a: common_vendor.t(item),
+        b: common_vendor.n(index == $data.currentTap ? "active" : ""),
+        c: index,
+        d: common_vendor.o(($event) => $options.switchTap(index), index)
+      };
+    }),
+    g: `translateY(${$data.headerTranslate})`,
+    h: $data.opacity,
+    i: common_vendor.f(100, (item, index, i0) => {
+      return {
+        a: common_vendor.t(item),
+        b: index
+      };
+    }),
+    j: $data.scrollPaddingTop + "px",
+    k: $data.scrollPaddingTop + "px",
+    l: $data.currentTap
   };
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-6bc6c6b7"]]);
