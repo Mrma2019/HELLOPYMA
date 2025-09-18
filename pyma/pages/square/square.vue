@@ -147,9 +147,11 @@
 			color: $uni-color-primary;
 
 			.iconfont {
+				position: relative;
 				margin-left: 25rpx;
 				font-size: 35rpx;
 				font-weight: bold;
+				z-index: 10;
 
 				&:nth-of-type(2) {
 					margin: 0;
@@ -158,6 +160,7 @@
 					width: 100%;
 					text-align: center;
 					color: #000;
+					z-index: 0
 				}
 			}
 		}
