@@ -144,6 +144,8 @@
 
 			.iconfont {
 				margin-left: 20rpx;
+				font-size: 35rpx;
+				font-weight: bold;
 			}
 		}
 

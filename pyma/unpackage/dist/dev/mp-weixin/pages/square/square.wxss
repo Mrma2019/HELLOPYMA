@@ -42,6 +42,8 @@
 }
 .header .line-item .iconfont.data-v-6bc6c6b7 {
   margin-left: 20rpx;
+  font-size: 35rpx;
+  font-weight: bold;
 }
 .header .avatar-img.data-v-6bc6c6b7 {
   border-radius: 50%;
