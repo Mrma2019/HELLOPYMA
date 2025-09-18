@@ -7,7 +7,7 @@
 					<view class="avatar-wrapper flex-row">
 						<image class="avatar" :src="userInfo.avatarUrl || defaultAvatarUrl" mode="widthFix">
 						</image>
-						<text class="nickname">{{userInfo.nickname || '--'}}</text>
+						<text class="nickname">{{userInfo.nickname || '点击授权'}}</text>
 						<view class="menu-btn flex-row" hover-class="menu-btn__hover" @click="openPopup">
 							<text class="iconfont">&#xe627;</text>
 						</view>
@@ -74,7 +74,7 @@
 	export default {
 		data() {
 			return {
-				appName: 'HELLOPYMA',
+				appName: 'HELLO哈喽',
 				pageInfo: {},
 				gap: 10,
 				is_popup: false,

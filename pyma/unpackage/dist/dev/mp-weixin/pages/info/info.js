@@ -6,7 +6,7 @@ const store_userStore = require("../../store/userStore.js");
 const _sfc_main = {
   data() {
     return {
-      appName: "HELLOPYMA",
+      appName: "HELLO哈喽",
       pageInfo: {},
       gap: 10,
       is_popup: false,
@@ -105,7 +105,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       color: $data.pageInfo.navColor
     }),
     b: $options.userInfo.avatarUrl || $data.defaultAvatarUrl,
-    c: common_vendor.t($options.userInfo.nickname || "--"),
+    c: common_vendor.t($options.userInfo.nickname || "点击授权"),
     d: common_vendor.o((...args) => $options.openPopup && $options.openPopup(...args)),
     e: common_vendor.f($data.pageInfo.navList, (nav, navIndex, i0) => {
       return {
