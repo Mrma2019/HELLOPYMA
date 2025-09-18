@@ -1,7 +1,7 @@
 import decodeUnicodeEntity from '@/utils/decode.js'
 
 const pageInfoRaw = {
-	navTitle: "HELLOPYMA",
+	navTitle: "HELLO哈喽",
 	navAlgin: "left",
 	navColor: "white",
 	isBack: false,

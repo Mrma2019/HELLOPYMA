@@ -10,8 +10,9 @@
 				</view>
 			</view>
 			<view class="tap-bar border-box flex-row">
-				<view :class="['tap-item', index==currentTap ? 'active':'']" v-for="item, index in pageInfo.tapList"
-					:key="index" @click="switchTap(index)"><text class="text">{{item.text}}</text></view>
+				<view :class="['tap-item', 'border-box', index==currentTap ? 'active':'']"
+					v-for="item, index in pageInfo.tapList" :key="index" @click="switchTap(index)"><text
+						class="text">{{item.text}}</text></view>
 			</view>
 		</view>
 
@@ -26,6 +27,9 @@
 				</scroll-view>
 			</swiper-item>
 		</swiper>
+		<view class="post-btn flex-row" hover-class="post-btn__hover">
+			<text class="iconfont">&#xe605;</text>
+		</view>
 	</view>
 </template>
 
@@ -33,7 +37,6 @@
 	import systemStore from '@/store/systemStore.js';
 	import userStore from '@/store/userStore';
 	import getPageInfo from './index.js';
-	import animate from '@/utils/animate.js';
 
 	export default {
 		data() {
@@ -143,7 +146,7 @@
 			color: $uni-color-primary;
 
 			.iconfont {
-				margin-left: 20rpx;
+				margin-left: 25rpx;
 				font-size: 35rpx;
 				font-weight: bold;
 			}
@@ -165,7 +168,10 @@
 			font-weight: bold;
 
 			.tap-item {
-				padding: 10rpx 40rpx;
+				height: 100%;
+				line-height: 80rpx;
+				text-align: center;
+				padding: 0 50rpx;
 			}
 		}
 
@@ -179,5 +185,25 @@
 		box-sizing: border-box;
 		transition: padding 0.25s linear;
 		/* 让 padding 过渡自然 */
+	}
+
+	.post-btn {
+		width: 100rpx;
+		height: 100rpx;
+		border-radius: 50%;
+		background-color: $uni-color-primary;
+		position: fixed;
+		bottom: 120rpx;
+		right: 50rpx;
+		color: #fff;
+		justify-content: center;
+		align-items: center;
+		font-size: 40rpx;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+		transition: transform 0.25s ease;
+	}
+
+	.post-btn__hover {
+		transform: scale(1.1);
 	}
 </style>

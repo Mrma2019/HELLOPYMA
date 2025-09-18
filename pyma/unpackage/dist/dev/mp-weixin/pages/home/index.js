@@ -1,7 +1,7 @@
 "use strict";
 const utils_decode = require("../../utils/decode.js");
 const pageInfoRaw = {
-  navTitle: "HELLOPYMA",
+  navTitle: "HELLO哈喽",
   navAlgin: "left",
   navColor: "white",
   isBack: false,

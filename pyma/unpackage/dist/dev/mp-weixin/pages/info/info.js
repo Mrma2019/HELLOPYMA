@@ -47,7 +47,8 @@ const _sfc_main = {
         key: "userInfo",
         data: {
           avatarUrl: this.userInfoRaw.avatarUrl,
-          nickname: this.userInfoRaw.nickname
+          nickname: this.userInfoRaw.nickname,
+          isLogin: false
         }
       });
       Object.assign(this.userInfo, {
@@ -60,7 +61,7 @@ const _sfc_main = {
   async mounted() {
     this.pageInfo = await pages_info_index.getPageInfo();
     if (store_systemStore.systemStore.data.screenWidth >= 768) {
-      common_vendor.index.__f__("log", "at pages/info/info.vue:132", "screenWidth>=768");
+      common_vendor.index.__f__("log", "at pages/info/info.vue:133", "screenWidth>=768");
       this.popupBoxHeight = "60";
     }
   },

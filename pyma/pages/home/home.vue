@@ -86,6 +86,7 @@
 	import weatherStore from '@/store/weatherStore.js';
 	import getPageInfo from './index.js';
 	import formatDate from '@/utils/format.js';
+	import userStore from '../../store/userStore.js';
 
 	export default {
 		data() {
@@ -136,10 +137,29 @@
 				this.contentPanelPaddingBottom = height;
 			},
 			//页面跳转
-			navigatorTo(e) {
-				if (weatherStore.loading) return;
+			async navigatorTo(e) {
 				const pagepath = e.currentTarget.dataset.pagepath;
-				// console.log(pagepath);
+				const isToWeather = pagepath.match(/^\/pages\/([^\/]+)/)[1] === 'weather' ? true : false;
+
+				if (isToWeather && weatherStore.loading) return;
+				// console.log('isLogin', userStore.data?.isLogin);
+				if (!isToWeather && !userStore.data?.isLogin) {
+					await uni.showModal({
+						title: "提示",
+						content: "当前操作需要您授权登录后，才能使用～",
+						success(res) {
+							if (res.confirm) {
+								uni.switchTab({
+									url: "/pages/info/info"
+								})
+							} else if (res.cancel) {
+								console.log("user click cancel");
+							}
+						}
+					})
+					return
+				}
+
 				const that = this;
 				uni.navigateTo({
 					url: `${pagepath}`,
