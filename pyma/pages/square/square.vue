@@ -7,6 +7,7 @@
 					<text class="iconfont" @click="goBack">&#xe620;</text>
 					<image class="avatar-img" :src="userInfo.avatarUrl" mode="widthFix"
 						:style="{width: avatarWidth + 'px', height: avatarWidth + 'px'}"></image>
+					<text class="iconfont">&#xe60f;</text>
 				</view>
 			</view>
 			<view class="tap-bar border-box flex-row">
@@ -149,6 +150,15 @@
 				margin-left: 25rpx;
 				font-size: 35rpx;
 				font-weight: bold;
+
+				&:nth-of-type(2) {
+					margin: 0;
+					font-size: 100rpx;
+					position: absolute;
+					width: 100%;
+					text-align: center;
+					color: #000;
+				}
 			}
 		}
 

@@ -49,7 +49,7 @@ const _sfc_main = {
       this.lastScrollTop = current;
     },
     switchTap(index) {
-      common_vendor.index.__f__("log", "at pages/square/square.vue:94", "currentTap", index);
+      common_vendor.index.__f__("log", "at pages/square/square.vue:95", "currentTap", index);
       this.currentTap = index;
     },
     onChange(e) {

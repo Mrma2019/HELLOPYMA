@@ -48,7 +48,7 @@ const _sfc_main = {
         data: {
           avatarUrl: this.userInfoRaw.avatarUrl,
           nickname: this.userInfoRaw.nickname,
-          isLogin: false
+          isLogin: true
         }
       });
       Object.assign(this.userInfo, {
