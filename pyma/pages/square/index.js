@@ -1,14 +1,31 @@
 const pageInfoRaw = {
-	tapList: [
-		'推荐',
-		'关注'
+	tapList: [{
+			text: "推荐",
+			content: []
+		},
+		{
+			text: "关注",
+			content: []
+		}
 	]
 }
 
 export default async function getPageInfo() {
-	const pageInfo = {
-		...pageInfoRaw
+	const test = []
+	for (let i = 1; i <= 100; i++) {
+		test.push(i);
 	}
 
-	return pageInfo;
+	const tapList = pageInfoRaw.tapList.map(item => {
+		return {
+			...item,
+			content: test
+		}
+	})
+
+	const pageInfo = {
+		tapList
+	}
+
+	return pageInfo
 }

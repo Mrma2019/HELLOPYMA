@@ -2,109 +2,103 @@
 const common_vendor = require("../common/vendor.js");
 const config_config = require("../config/config.js");
 const store_weatherStore = require("../store/weatherStore.js");
-async function getWeather() {
+function request(options) {
+  return new Promise((resolve, reject) => {
+    common_vendor.index.request({
+      ...options,
+      success: resolve,
+      fail: reject
+    });
+  });
+}
+function getLocation() {
   return new Promise((resolve, reject) => {
     common_vendor.index.getLocation({
       type: "gcj02",
-      success: (res) => {
-        const {
-          latitude,
-          longitude
-        } = res;
-        common_vendor.index.request({
-          url: `${config_config.config.adCodeUrl}`,
-          data: {
-            key: `${config_config.config.apiKey}`,
-            location: `${longitude},${latitude}`
-          },
-          success: (res2) => {
-            if (res2.data.code == 200) {
-              const location = res2.data.location[0];
-              const adcode = location.id;
-              store_weatherStore.weatherStore.data.location = location;
-              getWeatherByAdcode(adcode).then(resolve).catch(reject);
-              getGridWeatherByAdcode(longitude, latitude).then(
-                resolve
-              ).catch(reject);
-              getIndices(longitude, latitude).then(resolve).catch(
-                reject
-              );
-            }
-          },
-          fail: reject
-        });
-      },
+      success: resolve,
       fail: reject
     });
   });
 }
 async function getWeatherByAdcode(code) {
-  return new Promise((resolve, reject) => {
-    common_vendor.index.request({
-      url: `${config_config.config.weatherUrl}`,
-      data: {
-        key: `${config_config.config.apiKey}`,
-        location: code
-      },
-      success: (res) => {
-        if (res.data.code == 200) {
-          const weatherInfo = res.data.now;
-          store_weatherStore.weatherStore.data = {
-            ...weatherInfo,
-            ...store_weatherStore.weatherStore.data
-          };
-          store_weatherStore.weatherStore.loading = false;
-          resolve(weatherInfo);
-        } else {
-          reject("获取天气数据失败");
-        }
-      },
-      fail: reject
-    });
+  const res = await request({
+    url: config_config.config.weatherUrl,
+    data: {
+      key: config_config.config.apiKey,
+      location: code
+    }
   });
+  if (res.data.code !== "200")
+    throw new Error("获取天气数据失败");
+  const weatherInfo = res.data.now;
+  store_weatherStore.weatherStore.data = {
+    ...weatherInfo,
+    ...store_weatherStore.weatherStore.data
+  };
+  return weatherInfo;
 }
 async function getGridWeatherByAdcode(lon, lat) {
-  return new Promise((resolve, reject) => {
-    common_vendor.index.request({
-      url: `${config_config.config.gridWeatherUrl}`,
-      data: {
-        key: `${config_config.config.apiKey}`,
-        location: `${lon},${lat}`
-      },
-      success: (res) => {
-        if (res.data.code == 200) {
-          const girdInfo = res.data;
-          store_weatherStore.weatherStore.girdInfo = girdInfo;
-          resolve(girdInfo);
-        } else {
-          reject("获取天气信息失败");
-        }
-      },
-      fail: reject
-    });
+  const res = await request({
+    url: config_config.config.gridWeatherUrl,
+    data: {
+      key: config_config.config.apiKey,
+      location: `${lon},${lat}`
+    }
   });
+  if (res.data.code !== "200")
+    throw new Error("获取格点天气失败");
+  const gridInfo = res.data;
+  store_weatherStore.weatherStore.girdInfo = gridInfo;
+  return gridInfo;
 }
 async function getIndices(lon, lat) {
-  return new Promise((resolve, reject) => {
-    common_vendor.index.request({
-      url: `${config_config.config.indicesUrl}`,
-      data: {
-        key: `${config_config.config.apiKey}`,
-        type: 1,
-        location: `${lon},${lat}`
-      },
-      success: (res) => {
-        if (res.data.code == 200) {
-          const indices = res.data;
-          store_weatherStore.weatherStore.indices = indices;
-          resolve(indices);
-        } else {
-          reject("获取指数信息失败");
-        }
-      },
-      fail: reject
-    });
+  const res = await request({
+    url: config_config.config.indicesUrl,
+    data: {
+      key: config_config.config.apiKey,
+      type: 1,
+      location: `${lon},${lat}`
+    }
   });
+  if (res.data.code !== "200")
+    throw new Error("获取天气指数失败");
+  const indices = res.data;
+  store_weatherStore.weatherStore.indices = indices;
+  return indices;
+}
+async function getWeather() {
+  try {
+    const {
+      latitude,
+      longitude
+    } = await getLocation();
+    const adRes = await request({
+      url: config_config.config.adCodeUrl,
+      data: {
+        key: config_config.config.apiKey,
+        location: `${longitude},${latitude}`
+      }
+    });
+    if (adRes.data.code !== "200")
+      throw new Error("获取位置信息失败");
+    const location = adRes.data.location[0];
+    const adcode = location.id;
+    store_weatherStore.weatherStore.data.location = location;
+    const [weather, gridWeather, indices] = await Promise.all([
+      getWeatherByAdcode(adcode),
+      getGridWeatherByAdcode(longitude, latitude),
+      getIndices(longitude, latitude)
+    ]);
+    store_weatherStore.weatherStore.loading = false;
+    return {
+      weather,
+      gridWeather,
+      indices
+    };
+  } catch (err) {
+    common_vendor.index.__f__("error", "at utils/weather.js:136", err);
+    throw err;
+  }
 }
 exports.getWeather = getWeather;
 //# sourceMappingURL=../../.sourcemap/mp-weixin/utils/weather.js.map

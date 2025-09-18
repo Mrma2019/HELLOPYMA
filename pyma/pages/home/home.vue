@@ -1,7 +1,7 @@
 <template>
 	<view class="content">
-		<uni-nav-bar class="nav-bar__component" :title="pageInfo?.navTitle" :align="pageInfo?.navAlgin"
-			:is-back="pageInfo?.isBack" :color="pageInfo?.navColor" @sendNavBarHeight="getNavBarHeight">
+		<uni-nav-bar class="nav-bar__component" :title="pageInfo.navTitle" :align="pageInfo.navAlgin"
+			:is-back="pageInfo.isBack" :color="pageInfo.navColor" @sendNavBarHeight="getNavBarHeight">
 		</uni-nav-bar>
 		<scroll-view id="page-content" scroll-y refresher-enabled="true" :refresher-triggered="refresherTriggered"
 			@refresherrefresh="onRefresher">
@@ -10,7 +10,7 @@
 					:style="{height: navBarHeight + gap + swiperHeight/2 + 'px', marginBottom: swiperHeight / 2 + 'px'}">
 					<!-- 轮播图 -->
 					<swiper class="swiper" :style="{top: navBarHeight + gap + 'px'}">
-						<swiper-item v-for="(item, index) in pageInfo?.swiperImageSrc" :key="index">
+						<swiper-item v-for="(item, index) in pageInfo.swiperImageSrc" :key="index">
 							<image class="item" :src="item" mode="aspectFill"></image>
 						</swiper-item>
 					</swiper>
@@ -22,11 +22,11 @@
 							@click="navigatorTo">
 							<view class="flex-row" style="align-items: center;">
 								<text
-									:class="['item-icon__weather', 'iconfont', 'qi-' + weatherInfo?.icon, weatherInfo?.icon == 100 ? 'rotate':'breath']"></text>
-								<text class="item-temp">{{weatherInfo?.temp || '--'}}</text>
+									:class="['item-icon__weather', 'iconfont', 'qi-' + weatherInfo.icon, weatherInfo.icon == 100 ? 'rotate':'breath']"></text>
+								<text class="item-temp">{{weatherInfo.temp}}</text>
 								<view class="weather-card__time flex-col">
 									<text class="item-icon__temp iconfont">&#xe9a6;</text>
-									<text class="item-time">{{dateInfo.time || '--'}}</text>
+									<text class="item-time">{{dateInfo.time}}</text>
 								</view>
 							</view>
 							<view class="info-text flex-col">
@@ -38,7 +38,7 @@
 						<!-- 日期 -->
 						<view class="date-info flex-col">
 							<view class="item-title">
-								<text>{{weatherInfo?.dateTitle || '--'}}</text>
+								<text>{{weatherInfo.dateTitle}}</text>
 							</view>
 							<view class="item-date flex-row">
 								<view class="date-item" v-for="(item, index) in dateParts" :key="index">
@@ -57,17 +57,17 @@
 							<text class="iconfont">{{pageInfo.mainBtn?.unicode}}</text>
 						</view>
 						<view class="sub-btn__box flex-col">
-							<view class="sub-btn button border-box flex-col" v-for="item, index in pageInfo?.subBtns"
+							<view class="sub-btn button border-box flex-col" v-for="item, index in pageInfo.subBtns"
 								:key="index" @click="openPopup(item)">
-								<text class="text">{{item?.text || '--'}}</text>
-								<text class="desc">{{item?.desc || '--'}}</text>
-								<text class="iconfont">{{item?.unicode}}</text>
+								<text class="text">{{item.text || '--'}}</text>
+								<text class="desc">{{item.desc || '--'}}</text>
+								<text class="iconfont">{{item.unicode}}</text>
 							</view>
 						</view>
 					</view>
 					<!-- 标签页 -->
 					<view class="tap-bar border-box">
-						<uni-tap-bar class="tap-bar__component" :taps="pageInfo?.taps"></uni-tap-bar>
+						<uni-tap-bar class="tap-bar__component" :taps="pageInfo.taps"></uni-tap-bar>
 					</view>
 				</view>
 			</view>
@@ -137,6 +137,7 @@
 			},
 			//页面跳转
 			navigatorTo(e) {
+				if (weatherStore.loading) return;
 				const pagepath = e.currentTarget.dataset.pagepath;
 				// console.log(pagepath);
 				const that = this;
@@ -175,12 +176,12 @@
 			weatherInfo() {
 				const data = weatherStore.data;
 				return {
-					temp: data.temp,
-					text: data.text,
+					temp: data?.temp || '--',
+					text: data?.text || '--',
 					windDir: `${data?.windDir || '-'} ${data?.windScale || '-'}级`,
 					humidity: `空气湿度 ${data?.humidity || '--'}`,
 					dateTitle: '当前日期 年/月/日',
-					icon: data.icon
+					icon: data?.icon
 				}
 			},
 			dateParts() {
@@ -203,7 +204,7 @@
 <style lang="scss" scoped>
 	$panel-width: 95%;
 	$ele-border-radius: 20rpx;
-	$ele-margin: 20rpx;
+	$ele-margin: 15rpx;
 
 	.box {
 		width: 100%;

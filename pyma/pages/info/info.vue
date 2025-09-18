@@ -1,7 +1,7 @@
 <template>
 	<view class="content">
-		<uni-nav-bar :title="pageInfo?.navTitle" :align="pageInfo?.navAlgin" :color="pageInfo?.navColor"></uni-nav-bar>
-		<scroll-view id="page-content" scroll-y :style="{paddingTop: systemInfo?.navBarHeight + gap + 'px'}">
+		<uni-nav-bar :title="pageInfo.navTitle" :align="pageInfo.navAlgin" :color="pageInfo.navColor"></uni-nav-bar>
+		<scroll-view id="page-content" scroll-y :style="{paddingTop: systemInfo.navBarHeight + gap + 'px'}">
 			<view class="content-wrapper">
 				<view class="profile-card border-box flex-col">
 					<view class="avatar-wrapper flex-row">

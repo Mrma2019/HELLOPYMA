@@ -1,20 +1,22 @@
 import systemStore from '@/store/systemStore.js';
 
 export default async function getSystemInfo() {
-	return new Promise((resolve) => {
-		const sysInfo = uni.getWindowInfo();
-		const menuInfo = uni.getMenuButtonBoundingClientRect();
-		console.log(menuInfo);
+	const sysInfo = uni.getWindowInfo();
+	const menuInfo = uni.getMenuButtonBoundingClientRect();
 
-		const navBarHeight = menuInfo.top * 2 + menuInfo.height - sysInfo.statusBarHeight;
-		const screenWidth = sysInfo.screenWidth;
+	const {
+		statusBarHeight,
+		screenWidth
+	} = sysInfo;
 
-		systemStore.data.sysInfo = sysInfo;
-		systemStore.data.menuInfo = menuInfo;
+	const {
+		top,
+		height
+	} = menuInfo;
 
-		systemStore.data.navBarHeight = navBarHeight;
-		// console.log(navBarHeight);
+	const navBarHeight = top * 2 + height - statusBarHeight;
 
-		resolve('set sysInfo sucess');
-	})
+	systemStore.data.sysInfo = sysInfo;
+	systemStore.data.menuInfo = menuInfo;
+	systemStore.data.navBarHeight = navBarHeight;
 }

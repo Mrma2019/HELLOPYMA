@@ -34,23 +34,30 @@ const _sfc_main = {
     onScroll(e) {
       const current = Math.max(e.detail.scrollTop, 0);
       const offset = Math.min(current, this.headerHeight);
-      const minDelta = 1.2;
+      const minDelta = 1.5;
       const delta = current - this.lastScrollTop;
       const isScrollingDown = delta > minDelta;
       const isScrollingUp = delta < -minDelta;
       if (isScrollingDown) {
         this.headerTranslate = `-${offset}px`;
-        this.opacity = 1 - offset / this.headerHeight;
+        this.opacity = 1 - offset * 1.5 / this.headerHeight;
       } else if (isScrollingUp) {
         this.headerTranslate = "0px";
         this.opacity = 1;
       }
-      this.scrollPaddingTop = this.headerHeight - offset * 1.5;
+      this.scrollPaddingTop = this.headerHeight - offset * 1.2;
       this.lastScrollTop = current;
     },
     switchTap(index) {
-      common_vendor.index.__f__("log", "at pages/square/square.vue:90", "currentTap", index);
+      common_vendor.index.__f__("log", "at pages/square/square.vue:91", "currentTap", index);
       this.currentTap = index;
+    },
+    onChange(e) {
+      const index = e.detail.current;
+      this.currentTap = index;
+    },
+    goBack() {
+      common_vendor.index.navigateBack();
     }
   },
   computed: {
@@ -76,30 +83,37 @@ const _sfc_main = {
 };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
-    a: $options.userInfo.avatarUrl,
-    b: $data.avatarWidth + "px",
+    a: common_vendor.o((...args) => $options.goBack && $options.goBack(...args)),
+    b: $options.userInfo.avatarUrl,
     c: $data.avatarWidth + "px",
-    d: $data.avatarTop + "px",
-    e: $options.systemInfo.navBarHeight + "px",
-    f: common_vendor.f($data.pageInfo.tapList, (item, index, i0) => {
+    d: $data.avatarWidth + "px",
+    e: $data.avatarTop + "px",
+    f: $options.systemInfo.navBarHeight + "px",
+    g: common_vendor.f($data.pageInfo.tapList, (item, index, i0) => {
       return {
-        a: common_vendor.t(item),
+        a: common_vendor.t(item.text),
         b: common_vendor.n(index == $data.currentTap ? "active" : ""),
         c: index,
         d: common_vendor.o(($event) => $options.switchTap(index), index)
       };
     }),
-    g: `translateY(${$data.headerTranslate})`,
-    h: $data.opacity,
-    i: common_vendor.f(100, (item, index, i0) => {
+    h: `translateY(${$data.headerTranslate})`,
+    i: $data.opacity,
+    j: common_vendor.f($data.pageInfo.tapList, (item, index, i0) => {
       return {
-        a: common_vendor.t(item),
-        b: index
+        a: common_vendor.f(item.content, (content, index2, i1) => {
+          return {
+            a: common_vendor.t(content),
+            b: index2
+          };
+        }),
+        b: common_vendor.o((...args) => $options.onScroll && $options.onScroll(...args), index),
+        c: index
       };
     }),
-    j: $data.scrollPaddingTop + "px",
     k: $data.scrollPaddingTop + "px",
-    l: $data.currentTap
+    l: $data.currentTap,
+    m: common_vendor.o((...args) => $options.onChange && $options.onChange(...args))
   };
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-6bc6c6b7"]]);

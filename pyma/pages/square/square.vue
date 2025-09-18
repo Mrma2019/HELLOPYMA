@@ -3,26 +3,26 @@
 		<!-- 头部 -->
 		<view class="header flex-col" :style="{transform: `translateY(${headerTranslate})`, opacity: opacity}">
 			<view class="avatar-wrapper" :style="{height: systemInfo.navBarHeight + 'px'}">
-				<image class="avatar-img" :src="userInfo.avatarUrl" mode="widthFix"
-					:style="{width: avatarWidth + 'px', height: avatarWidth + 'px', top: avatarTop + 'px'}"></image>
+				<view class="line-item flex-row" :style="{top: avatarTop + 'px'}">
+					<text class="iconfont" @click="goBack">&#xe620;</text>
+					<image class="avatar-img" :src="userInfo.avatarUrl" mode="widthFix"
+						:style="{width: avatarWidth + 'px', height: avatarWidth + 'px'}"></image>
+				</view>
 			</view>
 			<view class="tap-bar border-box flex-row">
 				<view :class="['tap-item', index==currentTap ? 'active':'']" v-for="item, index in pageInfo.tapList"
-					:key="index" @click="switchTap(index)"><text class="text">{{item}}</text></view>
+					:key="index" @click="switchTap(index)"><text class="text">{{item.text}}</text></view>
 			</view>
 		</view>
 
-		<swiper indicator-dots="{{false}}" autoplay="{{false}}" :current="currentTap" style="{height: 100vh;}">
-			<swiper-item style="{height: 100vh;}">
-				<scroll-view class="scroll-box" :style="{paddingTop: scrollPaddingTop + 'px'}">
-					<view v-for="item, index in 100" :key="index">
-						<text>{{item}}</text>
+		<swiper indicator-dots="{{false}}" autoplay="{{false}}" :current="currentTap" :style="{height: '100vh'}"
+			@change="onChange">
+			<swiper-item v-for="item, index in pageInfo.tapList" :key="index">
+				<scroll-view class="scroll-box" scroll-y :style="{paddingTop: scrollPaddingTop + 'px'}"
+					@scroll="onScroll">
+					<view v-for="content, index in item.content" :key="index">
+						{{content}}
 					</view>
-				</scroll-view>
-			</swiper-item>
-			<swiper-item style="{height: 100vh;}">
-				<scroll-view class="scroll-box" :style="{paddingTop: scrollPaddingTop + 'px'}">
-					<view>2</view>
 				</scroll-view>
 			</swiper-item>
 		</swiper>
@@ -33,6 +33,7 @@
 	import systemStore from '@/store/systemStore.js';
 	import userStore from '@/store/userStore';
 	import getPageInfo from './index.js';
+	import animate from '@/utils/animate.js';
 
 	export default {
 		data() {
@@ -71,24 +72,31 @@
 				const current = Math.max(e.detail.scrollTop, 0);
 				const offset = Math.min(current, this.headerHeight);
 				// 方向判断加阈值（避免抖动）
-				const minDelta = 1.2;
+				const minDelta = 1.5;
 				const delta = current - this.lastScrollTop;
-				const isScrollingDown = delta > minDelta; // 超过1.2px才判定为下滑
-				const isScrollingUp = delta < -minDelta; // 超过1.2px才判定为上滑
+				const isScrollingDown = delta > minDelta;
+				const isScrollingUp = delta < -minDelta;
 				if (isScrollingDown) {
 					this.headerTranslate = `-${offset}px`;
-					this.opacity = 1 - offset / this.headerHeight;
+					this.opacity = 1 - offset * 1.5 / this.headerHeight;
 				} else if (isScrollingUp) {
 					this.headerTranslate = '0px';
 					this.opacity = 1;
 				}
 				// paddingTop 固定，不要动态减
-				this.scrollPaddingTop = this.headerHeight - offset * 1.5;
+				this.scrollPaddingTop = this.headerHeight - offset * 1.2;
 				this.lastScrollTop = current;
 			},
 			switchTap(index) {
 				console.log('currentTap', index);
 				this.currentTap = index;
+			},
+			onChange(e) {
+				const index = e.detail.current;
+				this.currentTap = index;
+			},
+			goBack() {
+				uni.navigateBack();
 			}
 		},
 		computed: {
@@ -124,12 +132,26 @@
 		position: fixed;
 		top: 0;
 		z-index: 10;
-		transition: transform 0.25s ease-out, opacity 0.25s ease;
+		transition: transform 0.25s linear, opacity 0.25s linear;
+		border-bottom: 1px solid #eee;
+
+		.line-item {
+			position: relative;
+			width: 100%;
+			height: max-content;
+			align-items: center;
+			color: $uni-color-primary;
+
+			.iconfont {
+				margin-left: 20rpx;
+			}
+		}
 
 		.avatar-img {
-			position: relative;
 			border-radius: 50%;
-			margin-left: 40rpx;
+			margin-left: 20rpx;
+			box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+			border: 1px solid #eee;
 		}
 
 		.tap-bar {
@@ -146,14 +168,14 @@
 		}
 
 		.active {
-			border-bottom: 4rpx solid $uni-color-primary;
+			border-bottom: 6rpx solid $uni-color-primary;
 		}
 	}
 
 	.scroll-box {
 		height: 100vh;
 		box-sizing: border-box;
-		transition: padding 0.25s ease;
+		transition: padding 0.25s linear;
 		/* 让 padding 过渡自然 */
 	}
 </style>

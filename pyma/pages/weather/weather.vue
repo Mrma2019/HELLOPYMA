@@ -1,44 +1,44 @@
 <template>
 	<view class="content">
-		<uni-nav-bar class="nav-bar__component" :align="pageInfo?.navAlgin" :title="pageInfo?.navTitle"
-			:color="pageInfo?.navColor" , :is-back="pageInfo?.isBack" @sendNavBarHeight="getNavHeight"></uni-nav-bar>
+		<uni-nav-bar class="nav-bar__component" :align="pageInfo.navAlgin" :title="pageInfo.navTitle"
+			:color="pageInfo.navColor" , :is-back="pageInfo.isBack" @sendNavBarHeight="getNavHeight"></uni-nav-bar>
 		<view class="content-wrapper fixed-box" :style="{paddingTop: navigatorHeight + 'px'}">
 			<scroll-view id="page-content" class="border-box" scroll-y>
 				<view class="content-panel flex-col" style="padding-bottom: 100rpx;">
 					<view class="location flex-row">
 						<view class="flex-row" style="height: 100%; align-items: center;">
-							<text class="addr">{{weatherInfo.location?.name || '--'}}</text>
+							<text class="addr">{{weatherInfo.location.name || '--'}}</text>
 							<text class="date">{{date || '--'}}</text>
 						</view>
-						<text class="update_time">{{weatherInfo?.updateTime || '--'}}</text>
+						<text class="update_time">{{weatherInfo.updateTime || '--'}}</text>
 					</view>
 					<view class="now-info flex-row">
 						<view class="flex-row">
-							<text class="temp">{{weatherInfo?.temp || '--'}}</text>
+							<text class="temp">{{weatherInfo.temp || '--'}}</text>
 							<text class="temp-icon iconfont">&#xe9a6;</text>
 						</view>
-						<text :class="['qi-' + weatherInfo?.icon, weatherInfo?.icon == 100 ? 'rotate':'breath']"></text>
-						<text class="text">{{weatherInfo?.text || '--'}}</text>
+						<text :class="['qi-' + weatherInfo.icon, weatherInfo.icon == 100 ? 'rotate':'breath']"></text>
+						<text class="text">{{weatherInfo.text || '--'}}</text>
 					</view>
 					<view class="info__card card border-box flex-row">
 						<view class="item flex-col">
 							<text class="desc">风速</text>
 							<text class="icon qi-1080"></text>
-							<text class="text">{{weatherInfo?.windSpeed}}</text>
+							<text class="text">{{weatherInfo.windSpeed}}</text>
 						</view>
 						<view class="item flex-col">
 							<text class="desc">云量</text>
 							<text class="icon qi-509"></text>
-							<text class="text">{{weatherInfo?.cloud}}</text>
+							<text class="text">{{weatherInfo.cloud}}</text>
 						</view>
 						<view class="item flex-col">
 							<text class="desc">体感温度</text>
 							<text class="icon qi-2396"></text>
-							<text class="text">{{weatherInfo?.feelsLike}}</text>
+							<text class="text">{{weatherInfo.feelsLike}}</text>
 						</view>
 					</view>
 					<view class="grid-info__card card border-box flex-col">
-						<view class="item flex-row" v-for="item, index in weatherInfo?.gridInfo" :key="index">
+						<view class="item flex-row" v-for="item, index in weatherInfo.gridInfo" :key="index">
 							<text>{{item.day || '--'}}</text>
 							<text>
 								<text :class="['qi-'+item.iconDay]"></text>
@@ -49,13 +49,13 @@
 					</view>
 					<view class="indices__card card border-box flex-row">
 						<view class="flex-col" style="justify-content: center; align-items: center;">
-							<text class="item-name">{{weatherInfo?.indices?.name || '--'}}</text>
+							<text class="item-name">{{weatherInfo.indices.name || '--'}}</text>
 							<text class="iconfont">&#xe629;</text>
 						</view>
 						<view class="flex-col"
 							style="flex: 1; justify-content: center; align-items: flex-start; padding-left: 40rpx;">
-							<text class="item-category">{{weatherInfo?.indices?.category || '--'}}</text>
-							<text class="item-text">{{weatherInfo?.indices?.text || '--'}}</text>
+							<text class="item-category">{{weatherInfo.indices.category || '--'}}</text>
+							<text class="item-text">{{weatherInfo.indices.text || '--'}}</text>
 						</view>
 					</view>
 					<view class="footer">
@@ -126,7 +126,7 @@
 					temp: data?.temp || '--',
 					text: data?.text || '--',
 					location: data?.location || '--',
-					updateTime: data.obsTime?.match(/\d{2}:\d{2}/)[0] + '更新' || '--',
+					updateTime: data?.obsTime.match(/\d{2}:\d{2}/)[0] + '更新' || '--',
 					cloud: `${data?.cloud || '--'}%`,
 					windSpeed: `${data?.windSpeed || '--'}Km/h`,
 					feelsLike: `${data?.feelsLike || '--'}℃`

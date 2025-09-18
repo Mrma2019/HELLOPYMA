@@ -35,7 +35,7 @@ const _sfc_main = {
   },
   computed: {
     weatherInfo() {
-      var _a, _b;
+      var _a;
       const data = store_weatherStore.weatherStore.data;
       const gridInfo = ((_a = store_weatherStore.weatherStore.girdInfo) == null ? void 0 : _a.daily).map((item) => {
         const fd = utils_format.formatDate(item.fxDate);
@@ -52,7 +52,7 @@ const _sfc_main = {
         temp: (data == null ? void 0 : data.temp) || "--",
         text: (data == null ? void 0 : data.text) || "--",
         location: (data == null ? void 0 : data.location) || "--",
-        updateTime: ((_b = data.obsTime) == null ? void 0 : _b.match(/\d{2}:\d{2}/)[0]) + "更新" || "--",
+        updateTime: (data == null ? void 0 : data.obsTime.match(/\d{2}:\d{2}/)[0]) + "更新" || "--",
         cloud: `${(data == null ? void 0 : data.cloud) || "--"}%`,
         windSpeed: `${(data == null ? void 0 : data.windSpeed) || "--"}Km/h`,
         feelsLike: `${(data == null ? void 0 : data.feelsLike) || "--"}℃`
@@ -69,27 +69,26 @@ if (!Math) {
   _easycom_uni_nav_bar();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r, _s, _t;
   return {
     a: common_vendor.o($options.getNavHeight),
     b: common_vendor.p({
-      align: (_a = $data.pageInfo) == null ? void 0 : _a.navAlgin,
-      title: (_b = $data.pageInfo) == null ? void 0 : _b.navTitle,
-      color: (_c = $data.pageInfo) == null ? void 0 : _c.navColor,
+      align: $data.pageInfo.navAlgin,
+      title: $data.pageInfo.navTitle,
+      color: $data.pageInfo.navColor,
       [","]: true,
-      ["is-back"]: (_d = $data.pageInfo) == null ? void 0 : _d.isBack
+      ["is-back"]: $data.pageInfo.isBack
     }),
-    c: common_vendor.t(((_e = $options.weatherInfo.location) == null ? void 0 : _e.name) || "--"),
+    c: common_vendor.t($options.weatherInfo.location.name || "--"),
     d: common_vendor.t($data.date || "--"),
-    e: common_vendor.t(((_f = $options.weatherInfo) == null ? void 0 : _f.updateTime) || "--"),
-    f: common_vendor.t(((_g = $options.weatherInfo) == null ? void 0 : _g.temp) || "--"),
-    g: common_vendor.n("qi-" + ((_h = $options.weatherInfo) == null ? void 0 : _h.icon)),
-    h: common_vendor.n(((_i = $options.weatherInfo) == null ? void 0 : _i.icon) == 100 ? "rotate" : "breath"),
-    i: common_vendor.t(((_j = $options.weatherInfo) == null ? void 0 : _j.text) || "--"),
-    j: common_vendor.t((_k = $options.weatherInfo) == null ? void 0 : _k.windSpeed),
-    k: common_vendor.t((_l = $options.weatherInfo) == null ? void 0 : _l.cloud),
-    l: common_vendor.t((_m = $options.weatherInfo) == null ? void 0 : _m.feelsLike),
-    m: common_vendor.f((_n = $options.weatherInfo) == null ? void 0 : _n.gridInfo, (item, index, i0) => {
+    e: common_vendor.t($options.weatherInfo.updateTime || "--"),
+    f: common_vendor.t($options.weatherInfo.temp || "--"),
+    g: common_vendor.n("qi-" + $options.weatherInfo.icon),
+    h: common_vendor.n($options.weatherInfo.icon == 100 ? "rotate" : "breath"),
+    i: common_vendor.t($options.weatherInfo.text || "--"),
+    j: common_vendor.t($options.weatherInfo.windSpeed),
+    k: common_vendor.t($options.weatherInfo.cloud),
+    l: common_vendor.t($options.weatherInfo.feelsLike),
+    m: common_vendor.f($options.weatherInfo.gridInfo, (item, index, i0) => {
       return {
         a: common_vendor.t(item.day || "--"),
         b: common_vendor.n("qi-" + item.iconDay),
@@ -98,9 +97,9 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         e: index
       };
     }),
-    n: common_vendor.t(((_p = (_o = $options.weatherInfo) == null ? void 0 : _o.indices) == null ? void 0 : _p.name) || "--"),
-    o: common_vendor.t(((_r = (_q = $options.weatherInfo) == null ? void 0 : _q.indices) == null ? void 0 : _r.category) || "--"),
-    p: common_vendor.t(((_t = (_s = $options.weatherInfo) == null ? void 0 : _s.indices) == null ? void 0 : _t.text) || "--"),
+    n: common_vendor.t($options.weatherInfo.indices.name || "--"),
+    o: common_vendor.t($options.weatherInfo.indices.category || "--"),
+    p: common_vendor.t($options.weatherInfo.indices.text || "--"),
     q: common_vendor.t($data.footer),
     r: $data.navigatorHeight + "px"
   };

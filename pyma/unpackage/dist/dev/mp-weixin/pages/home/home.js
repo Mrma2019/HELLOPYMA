@@ -44,6 +44,8 @@ const _sfc_main = {
     },
     //页面跳转
     navigatorTo(e) {
+      if (store_weatherStore.weatherStore.loading)
+        return;
       const pagepath = e.currentTarget.dataset.pagepath;
       const that = this;
       common_vendor.index.navigateTo({
@@ -79,12 +81,12 @@ const _sfc_main = {
     weatherInfo() {
       const data = store_weatherStore.weatherStore.data;
       return {
-        temp: data.temp,
-        text: data.text,
+        temp: (data == null ? void 0 : data.temp) || "--",
+        text: (data == null ? void 0 : data.text) || "--",
         windDir: `${(data == null ? void 0 : data.windDir) || "-"} ${(data == null ? void 0 : data.windScale) || "-"}级`,
         humidity: `空气湿度 ${(data == null ? void 0 : data.humidity) || "--"}`,
         dateTitle: "当前日期 年/月/日",
-        icon: data.icon
+        icon: data == null ? void 0 : data.icon
       };
     },
     dateParts() {
@@ -117,16 +119,16 @@ if (!Math) {
   (_easycom_uni_nav_bar + _easycom_uni_tap_bar + _easycom_uni_popup + _easycom_uni_tab_bar)();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p;
+  var _a, _b, _c, _d, _e;
   return {
     a: common_vendor.o($options.getNavBarHeight),
     b: common_vendor.p({
-      title: (_a = $data.pageInfo) == null ? void 0 : _a.navTitle,
-      align: (_b = $data.pageInfo) == null ? void 0 : _b.navAlgin,
-      ["is-back"]: (_c = $data.pageInfo) == null ? void 0 : _c.isBack,
-      color: (_d = $data.pageInfo) == null ? void 0 : _d.navColor
+      title: $data.pageInfo.navTitle,
+      align: $data.pageInfo.navAlgin,
+      ["is-back"]: $data.pageInfo.isBack,
+      color: $data.pageInfo.navColor
     }),
-    c: common_vendor.f((_e = $data.pageInfo) == null ? void 0 : _e.swiperImageSrc, (item, index, i0) => {
+    c: common_vendor.f($data.pageInfo.swiperImageSrc, (item, index, i0) => {
       return {
         a: item,
         b: index
@@ -135,16 +137,16 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     d: $data.navBarHeight + $data.gap + "px",
     e: $data.navBarHeight + $data.gap + $data.swiperHeight / 2 + "px",
     f: $data.swiperHeight / 2 + "px",
-    g: common_vendor.n("qi-" + ((_f = $options.weatherInfo) == null ? void 0 : _f.icon)),
-    h: common_vendor.n(((_g = $options.weatherInfo) == null ? void 0 : _g.icon) == 100 ? "rotate" : "breath"),
-    i: common_vendor.t(((_h = $options.weatherInfo) == null ? void 0 : _h.temp) || "--"),
-    j: common_vendor.t($data.dateInfo.time || "--"),
+    g: common_vendor.n("qi-" + $options.weatherInfo.icon),
+    h: common_vendor.n($options.weatherInfo.icon == 100 ? "rotate" : "breath"),
+    i: common_vendor.t($options.weatherInfo.temp),
+    j: common_vendor.t($data.dateInfo.time),
     k: common_vendor.t($options.weatherInfo.text),
     l: common_vendor.t($options.weatherInfo.windDir),
     m: common_vendor.t($options.weatherInfo.humidity),
-    n: (_i = $data.pageInfo.pages) == null ? void 0 : _i.info_to,
+    n: (_a = $data.pageInfo.pages) == null ? void 0 : _a.info_to,
     o: common_vendor.o((...args) => $options.navigatorTo && $options.navigatorTo(...args)),
-    p: common_vendor.t(((_j = $options.weatherInfo) == null ? void 0 : _j.dateTitle) || "--"),
+    p: common_vendor.t($options.weatherInfo.dateTitle),
     q: common_vendor.f($options.dateParts, (item, index, i0) => {
       return {
         a: common_vendor.t(item.value),
@@ -152,22 +154,22 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         c: index
       };
     }),
-    r: common_vendor.t(((_k = $data.pageInfo.mainBtn) == null ? void 0 : _k.text) || "--"),
-    s: common_vendor.t(((_l = $data.pageInfo.mainBtn) == null ? void 0 : _l.desc) || "--"),
-    t: common_vendor.t((_m = $data.pageInfo.mainBtn) == null ? void 0 : _m.unicode),
-    v: (_n = $data.pageInfo.pages) == null ? void 0 : _n.mainBtn_to,
+    r: common_vendor.t(((_b = $data.pageInfo.mainBtn) == null ? void 0 : _b.text) || "--"),
+    s: common_vendor.t(((_c = $data.pageInfo.mainBtn) == null ? void 0 : _c.desc) || "--"),
+    t: common_vendor.t((_d = $data.pageInfo.mainBtn) == null ? void 0 : _d.unicode),
+    v: (_e = $data.pageInfo.pages) == null ? void 0 : _e.mainBtn_to,
     w: common_vendor.o((...args) => $options.navigatorTo && $options.navigatorTo(...args)),
-    x: common_vendor.f((_o = $data.pageInfo) == null ? void 0 : _o.subBtns, (item, index, i0) => {
+    x: common_vendor.f($data.pageInfo.subBtns, (item, index, i0) => {
       return {
-        a: common_vendor.t((item == null ? void 0 : item.text) || "--"),
-        b: common_vendor.t((item == null ? void 0 : item.desc) || "--"),
-        c: common_vendor.t(item == null ? void 0 : item.unicode),
+        a: common_vendor.t(item.text || "--"),
+        b: common_vendor.t(item.desc || "--"),
+        c: common_vendor.t(item.unicode),
         d: index,
         e: common_vendor.o(($event) => $options.openPopup(item), index)
       };
     }),
     y: common_vendor.p({
-      taps: (_p = $data.pageInfo) == null ? void 0 : _p.taps
+      taps: $data.pageInfo.taps
     }),
     z: $data.contentPanelPaddingBottom + "px",
     A: $data.refresherTriggered,

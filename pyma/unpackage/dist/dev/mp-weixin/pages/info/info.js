@@ -97,12 +97,11 @@ if (!Math) {
   (_easycom_uni_nav_bar + _easycom_uni_popup + _easycom_uni_tab_bar)();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _a, _b, _c, _d;
   return {
     a: common_vendor.p({
-      title: (_a = $data.pageInfo) == null ? void 0 : _a.navTitle,
-      align: (_b = $data.pageInfo) == null ? void 0 : _b.navAlgin,
-      color: (_c = $data.pageInfo) == null ? void 0 : _c.navColor
+      title: $data.pageInfo.navTitle,
+      align: $data.pageInfo.navAlgin,
+      color: $data.pageInfo.navColor
     }),
     b: $options.userInfo.avatarUrl || $data.defaultAvatarUrl,
     c: common_vendor.t($options.userInfo.nickname || "--"),
@@ -120,7 +119,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         c: navIndex
       };
     }),
-    f: ((_d = $options.systemInfo) == null ? void 0 : _d.navBarHeight) + $data.gap + "px",
+    f: $options.systemInfo.navBarHeight + $data.gap + "px",
     g: common_vendor.t($data.appName),
     h: $options.userInfo.avatarUrl || $data.defaultAvatarUrl,
     i: common_vendor.o((...args) => $options.onChooseAvatar && $options.onChooseAvatar(...args)),
