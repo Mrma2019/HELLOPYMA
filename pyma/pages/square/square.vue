@@ -88,7 +88,7 @@
 					this.opacity = 1;
 				}
 				// paddingTop 固定，不要动态减
-				this.scrollPaddingTop = this.headerHeight - offset * 1.2;
+				this.scrollPaddingTop = this.headerHeight - offset * 1.05;
 				this.lastScrollTop = current;
 			},
 			switchTap(index) {
@@ -155,12 +155,12 @@
 
 				&:nth-of-type(2) {
 					margin: 0;
-					font-size: 100rpx;
+					font-size: 90rpx;
 					position: absolute;
 					width: 100%;
 					text-align: center;
 					color: #000;
-					z-index: 0
+					z-index: 0;
 				}
 			}
 		}

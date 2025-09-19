@@ -50,7 +50,7 @@
   height: 100%;
 }
 .content-panel.data-v-07e72d3c {
-  margin-top: 15rpx;
+  margin-top: 20rpx;
   width: 95%;
 }
 .content-panel .info__card.data-v-07e72d3c {
@@ -86,7 +86,7 @@
 }
 .content-panel .info__card .date-info.data-v-07e72d3c {
   flex: 1;
-  margin-left: 15rpx;
+  margin-left: 20rpx;
   background-color: #fff;
   border-radius: 20rpx;
   justify-content: center;
@@ -125,7 +125,7 @@
   height: 260rpx;
   justify-content: space-between;
   background-color: #fff;
-  margin-top: 15rpx;
+  margin-top: 20rpx;
   border-radius: 20rpx;
   padding: 20rpx;
   color: #fff;
@@ -190,7 +190,7 @@
   transform: scale(1.2);
 }
 .tap-bar.data-v-07e72d3c {
-  margin-top: 15rpx;
+  margin-top: 20rpx;
   border-radius: 20rpx;
   background-color: #fff;
 }

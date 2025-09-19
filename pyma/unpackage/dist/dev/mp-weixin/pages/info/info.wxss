@@ -58,83 +58,32 @@
 .profile-card .avatar-wrapper .menu-btn {
   width: 40rpx;
   height: 40rpx;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   right: 40rpx;
   background-color: #fff;
   border-radius: 50%;
   color: #1A4190;
-  justify-content: center;
-  align-items: center;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-  transition: transform 0.25s ease-out;
+  transition: transform 0.25s ease;
   will-change: transform;
 }
 .profile-card .avatar-wrapper .menu-btn .iconfont {
-  font-size: 30rpx;
+  font-weight: bold;
+  font-size: 25rpx;
 }
 .profile-card .avatar-wrapper .menu-btn__hover {
-  transform: scale(1.2);
+  transform: scale(1.1);
 }
-.profile-card .edit {
-  width: 100%;
-  padding: 20rpx;
-  font-size: 30rpx;
-  color: #fff;
-}
-.profile-card .edit .block {
+.profile-card .follow {
+  justify-content: space-around;
   align-items: center;
-  color: #ddd;
-  font-weight: bold;
-}
-.profile-card .edit .block .iconfont {
-  font-size: 40rpx;
-}
-.profile-card .edit .block .block__content {
-  padding-left: 20rpx;
-}
-.profile-card .edit .block .block__content .text {
   font-size: 30rpx;
 }
-.profile-card .edit .block .block__content .desc {
-  font-size: 20rpx;
-}
-.nav-card {
-  width: 95%;
-  height: -webkit-max-content;
-  height: max-content;
-  margin-top: 40rpx;
-  align-items: flex-start;
-  color: #1A4190;
-  border: 1px solid #1A4190;
-  padding-bottom: 0;
-  border-radius: 20rpx;
-}
-.nav-card .title {
-  display: inline-block;
-  width: 100%;
-  padding: 20rpx;
-  background-color: #1A4190;
-  font-size: 30rpx;
-  font-weight: bold;
-  color: #fff;
-}
-.nav-card .item-nav {
-  width: 100%;
+.profile-card .follow .block {
+  padding: 15rpx;
   align-items: center;
-  padding: 20rpx;
-  border-bottom: 1px solid #ddd;
-  position: relative;
-  font-size: 32rpx;
-}
-.nav-card .item-nav:last-child {
-  border-bottom: none;
-}
-.nav-card .item-nav .text {
-  padding-left: 20rpx;
-}
-.nav-card .item-nav .iconfont:nth-child(3) {
-  position: absolute;
-  left: 90%;
 }
 .popup-content {
   padding: 0 40rpx;

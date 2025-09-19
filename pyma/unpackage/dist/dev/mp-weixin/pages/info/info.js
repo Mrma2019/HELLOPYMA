@@ -28,17 +28,17 @@ const _sfc_main = {
       this.is_popup = false;
     },
     onChooseAvatar(e) {
-      common_vendor.index.__f__("log", "at pages/info/info.vue:99", e);
+      common_vendor.index.__f__("log", "at pages/info/info.vue:91", e);
       const {
         avatarUrl
       } = e.detail;
-      common_vendor.index.__f__("log", "at pages/info/info.vue:103", "avatarUrl", avatarUrl);
+      common_vendor.index.__f__("log", "at pages/info/info.vue:95", "avatarUrl", avatarUrl);
       this.defaultAvatarUrl = avatarUrl;
       this.userInfoRaw.avatarUrl = avatarUrl;
     },
     onInput(e) {
       const nickname = e.target.value;
-      common_vendor.index.__f__("log", "at pages/info/info.vue:109", "nickName input", nickname);
+      common_vendor.index.__f__("log", "at pages/info/info.vue:101", "nickName input", nickname);
       this.userInfoRaw.nickname = nickname;
     },
     // 点击提交按钮
@@ -61,7 +61,7 @@ const _sfc_main = {
   async mounted() {
     this.pageInfo = await pages_info_index.getPageInfo();
     if (store_systemStore.systemStore.data.screenWidth >= 768) {
-      common_vendor.index.__f__("log", "at pages/info/info.vue:133", "screenWidth>=768");
+      common_vendor.index.__f__("log", "at pages/info/info.vue:125", "screenWidth>=768");
       this.popupBoxHeight = "60";
     }
   },
@@ -106,20 +106,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     b: $options.userInfo.avatarUrl || $data.defaultAvatarUrl,
     c: common_vendor.t($options.userInfo.nickname || "点击授权"),
-    d: common_vendor.o((...args) => $options.openPopup && $options.openPopup(...args)),
-    e: common_vendor.f($data.pageInfo.navList, (nav, navIndex, i0) => {
-      return {
-        a: common_vendor.t(nav.title),
-        b: common_vendor.f(nav.item_list, (item, itemIndex, i1) => {
-          return {
-            a: common_vendor.t(item.unicode),
-            b: common_vendor.t(item.text),
-            c: itemIndex
-          };
-        }),
-        c: navIndex
-      };
-    }),
+    d: common_vendor.t($data.pageInfo.followCount),
+    e: common_vendor.t($data.pageInfo.fansCount),
     f: $options.systemInfo.navBarHeight + $data.gap + "px",
     g: common_vendor.t($data.appName),
     h: $options.userInfo.avatarUrl || $data.defaultAvatarUrl,

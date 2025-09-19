@@ -45,7 +45,7 @@ const _sfc_main = {
         this.headerTranslate = "0px";
         this.opacity = 1;
       }
-      this.scrollPaddingTop = this.headerHeight - offset * 1.2;
+      this.scrollPaddingTop = this.headerHeight - offset * 1.05;
       this.lastScrollTop = current;
     },
     switchTap(index) {

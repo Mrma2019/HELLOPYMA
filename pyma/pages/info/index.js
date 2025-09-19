@@ -5,6 +5,8 @@ const pageInfoRaw = {
 	navAlgin: "left",
 	navColor: "black",
 	isBack: false,
+	followCount: 0,
+	fansCount: 0,
 	navList: [{
 			title: '我的发布',
 			item_list: [{

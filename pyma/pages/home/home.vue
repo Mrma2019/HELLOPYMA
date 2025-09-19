@@ -224,7 +224,7 @@
 <style lang="scss" scoped>
 	$panel-width: 95%;
 	$ele-border-radius: 20rpx;
-	$ele-margin: 15rpx;
+	$ele-margin: 20rpx;
 
 	.box {
 		width: 100%;
