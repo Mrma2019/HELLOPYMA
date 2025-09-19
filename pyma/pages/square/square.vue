@@ -87,7 +87,7 @@
 					this.headerTranslate = '0px';
 					this.opacity = 1;
 				}
-				// paddingTop 固定，不要动态减
+
 				this.scrollPaddingTop = this.headerHeight - offset * 1.05;
 				this.lastScrollTop = current;
 			},
