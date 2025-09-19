@@ -33,6 +33,7 @@
   background-color: #1A4190;
   border-radius: 20rpx;
   color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 .profile-card .avatar-wrapper {
   align-items: center;
@@ -84,6 +85,14 @@
 .profile-card .follow .block {
   padding: 15rpx;
   align-items: center;
+}
+.nav-card {
+  width: 95%;
+  height: -webkit-max-content;
+  height: max-content;
+  margin-top: 20rpx;
+  background-color: #fff;
+  border-radius: 20rpx;
 }
 .popup-content {
   padding: 0 40rpx;

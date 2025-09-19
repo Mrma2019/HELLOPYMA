@@ -9,7 +9,7 @@
 						</image>
 						<text class="nickname">{{userInfo.nickname || '点击授权'}}</text>
 						<view class="menu-btn flex-row" hover-class="menu-btn__hover">
-							<text class="iconfont">&#xe78f;</text>
+							<text class="iconfont">&#xe7f6;</text>
 						</view>
 					</view>
 					<view class="follow flex-row">
@@ -20,6 +20,17 @@
 						<view class="block flex-col">
 							<text>{{pageInfo.fansCount}}</text>
 							<text>粉丝</text>
+						</view>
+					</view>
+				</view>
+				<view class="nav-card flex-col">
+					<view class="title">
+						<text>我的发布</text>
+					</view>
+					<view class="nav-content flex-row">
+						<view class="nav-item flex-col">
+							<text class="iconfont">&#xe669;</text>
+							<text class="nav-name">活动</text>
 						</view>
 					</view>
 				</view>
@@ -151,19 +162,22 @@
 </script>
 
 <style lang="scss">
+	$card-width: 95%;
 	$ele-border-radius: 20rpx;
 	$avatar-width: 100rpx;
+	$ele-margin: 20rpx;
 
 	::v-deep(.nav-bar) {
 		background-color: $uni-page-bg-color !important;
 	}
 
 	.profile-card {
-		width: 95%;
+		width: $card-width;
 		height: max-content;
 		background-color: $uni-color-primary;
 		border-radius: $ele-border-radius;
 		color: #fff;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 
 		.avatar-wrapper {
 			align-items: center;
@@ -223,6 +237,14 @@
 				align-items: center;
 			}
 		}
+	}
+
+	.nav-card {
+		width: $card-width;
+		height: max-content;
+		margin-top: $ele-margin;
+		background-color: #fff;
+		border-radius: $ele-border-radius;
 	}
 
 	.popup-content {

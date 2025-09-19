@@ -28,17 +28,17 @@ const _sfc_main = {
       this.is_popup = false;
     },
     onChooseAvatar(e) {
-      common_vendor.index.__f__("log", "at pages/info/info.vue:91", e);
+      common_vendor.index.__f__("log", "at pages/info/info.vue:102", e);
       const {
         avatarUrl
       } = e.detail;
-      common_vendor.index.__f__("log", "at pages/info/info.vue:95", "avatarUrl", avatarUrl);
+      common_vendor.index.__f__("log", "at pages/info/info.vue:106", "avatarUrl", avatarUrl);
       this.defaultAvatarUrl = avatarUrl;
       this.userInfoRaw.avatarUrl = avatarUrl;
     },
     onInput(e) {
       const nickname = e.target.value;
-      common_vendor.index.__f__("log", "at pages/info/info.vue:101", "nickName input", nickname);
+      common_vendor.index.__f__("log", "at pages/info/info.vue:112", "nickName input", nickname);
       this.userInfoRaw.nickname = nickname;
     },
     // 点击提交按钮
@@ -61,7 +61,7 @@ const _sfc_main = {
   async mounted() {
     this.pageInfo = await pages_info_index.getPageInfo();
     if (store_systemStore.systemStore.data.screenWidth >= 768) {
-      common_vendor.index.__f__("log", "at pages/info/info.vue:125", "screenWidth>=768");
+      common_vendor.index.__f__("log", "at pages/info/info.vue:136", "screenWidth>=768");
       this.popupBoxHeight = "60";
     }
   },
