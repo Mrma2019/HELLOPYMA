@@ -34,6 +34,7 @@
 }
 .header .line-block .iconfont.data-v-6bc6c6b7 {
   margin-left: 25rpx;
+  font-weight: bold;
 }
 .header .avatar.data-v-6bc6c6b7 {
   margin-left: 20rpx;
@@ -51,14 +52,10 @@
   justify-content: center;
   align-items: center;
 }
-.header .header-bar .bar-item.data-v-6bc6c6b7:nth-of-type(1) {
-  justify-content: flex-start;
-  border-right: 1px solid #ddd;
-}
-.header .header-bar .bar-item:nth-of-type(1) .iconfont.data-v-6bc6c6b7 {
+.header .header-bar .bar-item .iconfont.data-v-6bc6c6b7 {
   border-radius: 50%;
 }
-.header .header-bar .btn-item.data-v-6bc6c6b7 {
+.header .btn-item.data-v-6bc6c6b7 {
   padding: 15rpx;
   margin: 0 30rpx;
   background-color: #F2F4F7;

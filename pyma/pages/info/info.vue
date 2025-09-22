@@ -23,7 +23,7 @@
 						</view>
 					</view>
 				</view>
-				<view class="nav-card flex-col">
+				<view class="nav-card border-box flex-col">
 					<view class="title">
 						<text>{{pageInfo.navList?.title}}</text>
 					</view>
@@ -262,6 +262,10 @@
 		height: max-content;
 		margin-top: $ele-margin;
 		margin-bottom: #{$ele-margin * 2};
+		padding: 0 20rpx;
+		background-color: #fff;
+		border-radius: $ele-border-radius;
+		box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
 
 		.title {
 			padding: 20rpx 0;
@@ -282,8 +286,8 @@
 			justify-content: center;
 			padding-left: 25rpx;
 			border-radius: $ele-border-radius;
-			background-color: #fff;
-			color: $uni-color-primary;
+			background-color: $uni-color-primary;
+			color: #fff;
 			font-size: 30rpx;
 			box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
 			font-weight: bold;

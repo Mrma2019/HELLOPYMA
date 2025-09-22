@@ -10,10 +10,13 @@
 			</view>
 			<view class="header-bar flex-row">
 				<view class="bar-item flex-row">
-					<text class="iconfont btn-item">&#xe67d;</text>
-					<text class="select btn-item">任意日期<text class="iconfont">&#xe627;</text></text>
+					<text class="iconfont btn-item" @click="onClickSearch">&#xe67d;</text>
 				</view>
-				<view class="bar-item flex-row">
+				<view class="bar-item search" v-if="showSearch">
+					<input class="input" placeholder="输入地名或活动类型" confirm-type="search" @confirm=""/>
+				</view>
+				<view class="bar-item flex-row" v-if="!showSearch">
+					<text class="select btn-item">任意日期<text class="iconfont">&#xe627;</text></text>
 					<text class="button btn-item">推荐</text>
 					<text class="button btn-item">关注</text>
 				</view>
@@ -30,7 +33,8 @@
 		data() {
 			return {
 				avatarWidth: 25,
-				headerHeight: 0
+				headerHeight: 0,
+				showSearch: false
 			}
 		},
 
@@ -46,6 +50,11 @@
 		methods: {
 			goBack() {
 				uni.navigateBack();
+			},
+			onClickSearch() {
+				console.log(this.showSearch);
+				this.showSearch = true;
+				console.log(this.showSearch);
 			}
 		},
 		computed: {
@@ -83,6 +92,7 @@
 
 			.iconfont {
 				margin-left: 25rpx;
+				font-weight: bold;
 			}
 		}
 
@@ -103,22 +113,17 @@
 				justify-content: center;
 				align-items: center;
 
-				&:nth-of-type(1) {
-					justify-content: flex-start;
-					border-right: 1px solid #ddd;
-
-					.iconfont {
-						border-radius: 50%;
-					}
+				.iconfont {
+					border-radius: 50%;
 				}
 			}
+		}
 
-			.btn-item {
-				padding: 15rpx;
-				margin: 0 30rpx;
-				background-color: #F2F4F7;
-				border-radius: 40rpx;
-			}
+		.btn-item {
+			padding: 15rpx;
+			margin: 0 30rpx;
+			background-color: #F2F4F7;
+			border-radius: 40rpx;
 		}
 	}
 </style>

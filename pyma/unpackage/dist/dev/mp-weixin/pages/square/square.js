@@ -6,7 +6,8 @@ const _sfc_main = {
   data() {
     return {
       avatarWidth: 25,
-      headerHeight: 0
+      headerHeight: 0,
+      showSearch: false
     };
   },
   onLoad() {
@@ -19,6 +20,11 @@ const _sfc_main = {
   methods: {
     goBack() {
       common_vendor.index.navigateBack();
+    },
+    onClickSearch() {
+      common_vendor.index.__f__("log", "at pages/square/square.vue:55", this.showSearch);
+      this.showSearch = true;
+      common_vendor.index.__f__("log", "at pages/square/square.vue:57", this.showSearch);
     }
   },
   computed: {
@@ -40,14 +46,22 @@ const _sfc_main = {
   }
 };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
-  return {
+  return common_vendor.e({
     a: common_vendor.o((...args) => $options.goBack && $options.goBack(...args)),
     b: $options.userInfo.avatarUrl,
     c: $data.avatarWidth + "px",
     d: $options.sysInfo.avatarTop - $data.avatarWidth / 2 + "px",
     e: $options.sysInfo.navBarHeight + "px",
-    f: $data.headerHeight + "px"
-  };
+    f: common_vendor.o((...args) => $options.onClickSearch && $options.onClickSearch(...args)),
+    g: $data.showSearch
+  }, $data.showSearch ? {
+    h: common_vendor.o(() => {
+    })
+  } : {}, {
+    i: !$data.showSearch
+  }, !$data.showSearch ? {} : {}, {
+    j: $data.headerHeight + "px"
+  });
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-6bc6c6b7"]]);
 wx.createPage(MiniProgramPage);
