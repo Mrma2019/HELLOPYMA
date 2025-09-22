@@ -13,26 +13,32 @@
 						</view>
 					</view>
 					<view class="follow flex-row">
-						<view class="block flex-col">
-							<text>{{pageInfo.followCount}}</text>
-							<text>关注</text>
+						<view class="block flex-row">
+							<text class="desc">关注</text>
+							<text class="count">{{pageInfo.followCount}}</text>
 						</view>
-						<view class="block flex-col">
-							<text>{{pageInfo.fansCount}}</text>
-							<text>粉丝</text>
+						<view class="block flex-row">
+							<text class="desc">粉丝</text>
+							<text class="count">{{pageInfo.fansCount}}</text>
 						</view>
 					</view>
 				</view>
 				<view class="nav-card flex-col">
 					<view class="title">
-						<text>我的发布</text>
+						<text>{{pageInfo.navList?.title}}</text>
 					</view>
 					<view class="nav-content flex-row">
-						<view class="nav-item flex-col">
-							<text class="iconfont">&#xe669;</text>
-							<text class="nav-name">活动</text>
+						<view class="nav-item border-box flex-col" v-for="item, index in pageInfo.navList?.item_list"
+							:key="index">
+							<text class="iconfont">{{item.unicode}}</text>
+							<text class="nav-name">{{item.text}}</text>
 						</view>
 					</view>
+				</view>
+				<view class="logout border-box flex-row">
+					<text class="iconfont">&#xe611;</text>
+					<text class="text">注销登录</text>
+					<text class="iconfont">&#xe628;</text>
 				</view>
 			</view>
 		</scroll-view>
@@ -129,12 +135,20 @@
 				this.is_popup = false;
 			}
 		},
-		async mounted() {
+		async onLoad() {
 			this.pageInfo = await getPageInfo();
 			// 当屏幕宽度大于等于768px时,改变默认的高度
 			if (systemStore.data.screenWidth >= 768) {
 				console.log('screenWidth>=768');
 				this.popupBoxHeight = '60';
+			}
+		},
+		onShow() {
+			const userInfo = uni.getStorageSync('userInfo');
+
+			if (!userInfo.isLogin) {
+				console.log('info show', userStore.data.isLogin);
+				this.is_popup = true;
 			}
 		},
 		// 页面隐藏或者挑战时,隐藏弹出层
@@ -177,11 +191,11 @@
 		background-color: $uni-color-primary;
 		border-radius: $ele-border-radius;
 		color: #fff;
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+		box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
 
 		.avatar-wrapper {
 			align-items: center;
-			padding: 20rpx;
+			padding: 35rpx 20rpx;
 			position: relative;
 			border-bottom: 1px solid #ddd;
 
@@ -233,8 +247,12 @@
 			font-size: 30rpx;
 
 			.block {
-				padding: 15rpx;
+				padding: 20rpx;
 				align-items: center;
+
+				.count {
+					margin-left: 20rpx;
+				}
 			}
 		}
 	}
@@ -243,8 +261,69 @@
 		width: $card-width;
 		height: max-content;
 		margin-top: $ele-margin;
-		background-color: #fff;
+		margin-bottom: #{$ele-margin * 2};
+
+		.title {
+			padding: 20rpx 0;
+			font-size: 32rpx;
+			font-weight: bold;
+			color: $uni-color-primary;
+		}
+
+		.nav-content {
+			flex-wrap: wrap;
+		}
+
+		.nav-item {
+			width: 49%;
+			height: 120rpx;
+			margin-right: 2%;
+			margin-bottom: 20rpx;
+			justify-content: center;
+			padding-left: 25rpx;
+			border-radius: $ele-border-radius;
+			background-color: #fff;
+			color: $uni-color-primary;
+			font-size: 30rpx;
+			box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+			font-weight: bold;
+
+			&:nth-of-type(2n) {
+				margin-right: 0;
+			}
+
+			.iconfont {
+				font-size: 50rpx;
+				font-weight: normal;
+			}
+		}
+	}
+
+	.logout {
+		width: $card-width;
 		border-radius: $ele-border-radius;
+		padding: 30rpx 20rpx;
+		color: $uni-color-primary;
+		font-size: 30rpx;
+		position: relative;
+		background: #fff;
+		align-items: center;
+		box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+
+		.text {
+			margin-left: 20rpx;
+		}
+
+		.iconfont {
+			&:nth-child(1) {
+				font-size: 35rpx;
+			}
+
+			&:nth-child(3) {
+				position: absolute;
+				right: 40rpx;
+			}
+		}
 	}
 
 	.popup-content {

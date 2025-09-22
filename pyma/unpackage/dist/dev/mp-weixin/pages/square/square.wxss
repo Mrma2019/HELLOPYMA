@@ -23,83 +23,44 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.header.data-v-6bc6c6b7 {
-  width: 100%;
-  background-color: #fff;
-  position: fixed;
-  top: 0;
-  z-index: 10;
-  transition: transform 0.25s linear, opacity 0.25s linear;
-  border-bottom: 1px solid #eee;
-}
-.header .line-item.data-v-6bc6c6b7 {
-  position: relative;
-  width: 100%;
+.header .line-block.data-v-6bc6c6b7 {
   height: -webkit-max-content;
   height: max-content;
   align-items: center;
-  color: #1A4190;
-}
-.header .line-item .iconfont.data-v-6bc6c6b7 {
   position: relative;
-  margin-left: 25rpx;
-  font-size: 35rpx;
-  font-weight: bold;
-  z-index: 10;
-}
-.header .line-item .iconfont.data-v-6bc6c6b7:nth-of-type(2) {
-  margin: 0;
-  font-size: 90rpx;
-  position: absolute;
-  width: 100%;
-  text-align: center;
-  color: #000;
-  z-index: 0;
-}
-.header .avatar-img.data-v-6bc6c6b7 {
-  border-radius: 50%;
-  margin-left: 20rpx;
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
-  border: 1px solid #eee;
-}
-.header .tap-bar.data-v-6bc6c6b7 {
-  height: 80rpx;
   color: #1A4190;
-  justify-content: space-around;
-  align-items: center;
-  font-size: 30rpx;
+  font-size: 25rpx;
   font-weight: bold;
 }
-.header .tap-bar .tap-item.data-v-6bc6c6b7 {
-  height: 100%;
-  line-height: 80rpx;
-  text-align: center;
-  padding: 0 50rpx;
+.header .line-block .iconfont.data-v-6bc6c6b7 {
+  margin-left: 25rpx;
 }
-.header .active.data-v-6bc6c6b7 {
-  border-bottom: 6rpx solid #1A4190;
-}
-.scroll-box.data-v-6bc6c6b7 {
-  height: 100vh;
-  box-sizing: border-box;
-  transition: padding 0.25s linear;
-  /* 让 padding 过渡自然 */
-}
-.post-btn.data-v-6bc6c6b7 {
-  width: 100rpx;
-  height: 100rpx;
+.header .avatar.data-v-6bc6c6b7 {
+  margin-left: 20rpx;
   border-radius: 50%;
-  background-color: #1A4190;
-  position: fixed;
-  bottom: 120rpx;
-  right: 50rpx;
-  color: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.5);
+}
+.header .header-bar.data-v-6bc6c6b7 {
+  justify-content: space-around;
+  font-size: 25rpx;
+}
+.header .header-bar .bar-item.data-v-6bc6c6b7 {
+  height: 80rpx;
+  flex: 1;
   justify-content: center;
   align-items: center;
-  font-size: 40rpx;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-  transition: transform 0.25s ease;
 }
-.post-btn__hover.data-v-6bc6c6b7 {
-  transform: scale(1.1);
+.header .header-bar .bar-item.data-v-6bc6c6b7:nth-of-type(1) {
+  justify-content: flex-start;
+  border-right: 1px solid #ddd;
+}
+.header .header-bar .bar-item:nth-of-type(1) .iconfont.data-v-6bc6c6b7 {
+  border-radius: 50%;
+}
+.header .header-bar .btn-item.data-v-6bc6c6b7 {
+  padding: 15rpx;
+  margin: 0 30rpx;
+  background-color: #F2F4F7;
+  border-radius: 40rpx;
 }

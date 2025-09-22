@@ -1,222 +1,124 @@
 <template>
 	<view class="content">
-		<!-- 头部 -->
-		<view class="header flex-col" :style="{transform: `translateY(${headerTranslate})`, opacity: opacity}">
-			<view class="avatar-wrapper" :style="{height: systemInfo.navBarHeight + 'px'}">
-				<view class="line-item flex-row" :style="{top: avatarTop + 'px'}">
-					<text class="iconfont" @click="goBack">&#xe620;</text>
-					<image class="avatar-img" :src="userInfo.avatarUrl" mode="widthFix"
-						:style="{width: avatarWidth + 'px', height: avatarWidth + 'px'}"></image>
-					<text class="iconfont">&#xe60f;</text>
+		<view class="header flex-col" :style="{height: headerHeight + 'px'}">
+			<view class="avatar-wrapper" :style="{height: sysInfo.navBarHeight + 'px'}">
+				<view class="line-block flex-row" :style="{top: sysInfo.avatarTop - avatarWidth / 2 + 'px'}">
+					<text class="iconfont" @click="goBack">&#xe60d;</text>
+					<image class="avatar" :src="userInfo.avatarUrl" mode="widthFix"
+						:style="{width: avatarWidth + 'px'}"></image>
 				</view>
 			</view>
-			<view class="tap-bar border-box flex-row">
-				<view :class="['tap-item', 'border-box', index==currentTap ? 'active':'']"
-					v-for="item, index in pageInfo.tapList" :key="index" @click="switchTap(index)"><text
-						class="text">{{item.text}}</text></view>
+			<view class="header-bar flex-row">
+				<view class="bar-item flex-row">
+					<text class="iconfont btn-item">&#xe67d;</text>
+					<text class="select btn-item">任意日期<text class="iconfont">&#xe627;</text></text>
+				</view>
+				<view class="bar-item flex-row">
+					<text class="button btn-item">推荐</text>
+					<text class="button btn-item">关注</text>
+				</view>
 			</view>
-		</view>
-
-		<swiper indicator-dots="{{false}}" autoplay="{{false}}" :current="currentTap" :style="{height: '100vh'}"
-			@change="onChange">
-			<swiper-item v-for="item, index in pageInfo.tapList" :key="index">
-				<scroll-view class="scroll-box" scroll-y :style="{paddingTop: scrollPaddingTop + 'px'}"
-					@scroll="onScroll">
-					<view v-for="content, index in item.content" :key="index">
-						{{content}}
-					</view>
-				</scroll-view>
-			</swiper-item>
-		</swiper>
-		<view class="post-btn flex-row" hover-class="post-btn__hover">
-			<text class="iconfont">&#xe605;</text>
 		</view>
 	</view>
 </template>
 
 <script>
-	import systemStore from '@/store/systemStore.js';
 	import userStore from '@/store/userStore';
-	import getPageInfo from './index.js';
+	import systemStore from '@/store/systemStore';
 
 	export default {
 		data() {
 			return {
-				pageInfo: {},
-				headerHeight: 0,
-				headerTranslate: '0px',
-				currentTap: 0,
-				//scroll滚动
-				scrollPaddingTop: 0,
-				lastScrollTop: 0,
-				//头部透明度
-				opacity: 1,
-
-				avatarWidth: 30,
-				avatarTop: 0,
-				tapBarHeight: 0
-			};
+				avatarWidth: 25,
+				headerHeight: 0
+			}
 		},
-		async onLoad() {
-			this.pageInfo = await getPageInfo();
+
+		onLoad() {
+			const navBarHeight = systemStore.data.navBarHeight;
 
 			const query = uni.createSelectorQuery().in(this);
-			query.select('.tap-bar').boundingClientRect((res) => {
-				this.tapBarHeight = res.height;
-
-				const navBarHeight = systemStore.data.navBarHeight;
-				this.headerHeight = this.scrollPaddingTop = navBarHeight + this.tapBarHeight;
-
-				this.avatarTop = this.systemInfo.menuBottom - (this.systemInfo.menuHeight + this.avatarWidth) /
-					2;
+			query.select('.header-bar').boundingClientRect(rect => {
+				this.headerHeight = rect.height + navBarHeight;
 			}).exec();
 		},
-		methods: {
-			onScroll(e) {
-				const current = Math.max(e.detail.scrollTop, 0);
-				const offset = Math.min(current, this.headerHeight);
-				// 方向判断加阈值（避免抖动）
-				const minDelta = 1.5;
-				const delta = current - this.lastScrollTop;
-				const isScrollingDown = delta > minDelta;
-				const isScrollingUp = delta < -minDelta;
-				if (isScrollingDown) {
-					this.headerTranslate = `-${offset}px`;
-					this.opacity = 1 - offset * 1.5 / this.headerHeight;
-				} else if (isScrollingUp) {
-					this.headerTranslate = '0px';
-					this.opacity = 1;
-				}
 
-				this.scrollPaddingTop = this.headerHeight - offset * 1.05;
-				this.lastScrollTop = current;
-			},
-			switchTap(index) {
-				console.log('currentTap', index);
-				this.currentTap = index;
-			},
-			onChange(e) {
-				const index = e.detail.current;
-				this.currentTap = index;
-			},
+		methods: {
 			goBack() {
 				uni.navigateBack();
 			}
 		},
 		computed: {
+			sysInfo() {
+				const data = systemStore.data;
+				const navBarHeight = data.navBarHeight;
+				const menuInfo = data.menuInfo;
+
+				return {
+					navBarHeight,
+					avatarTop: menuInfo.bottom - menuInfo.height / 2,
+				}
+			},
 			userInfo() {
 				const data = userStore.data;
+
 				return {
 					avatarUrl: data.avatarUrl
 				}
-			},
-			systemInfo() {
-				const data = systemStore.data
-
-				const menuInfo = data.menuInfo;
-				const menuHeight = menuInfo.height;
-				const menuBottom = menuInfo.bottom;
-
-				const navBarHeight = data.navBarHeight;
-
-				return {
-					menuHeight,
-					menuBottom,
-					navBarHeight
-				}
 			}
 		}
-	};
+	}
 </script>
 
 <style lang="scss" scoped>
 	.header {
-		width: 100%;
-		background-color: #fff;
-		position: fixed;
-		top: 0;
-		z-index: 10;
-		transition: transform 0.25s linear, opacity 0.25s linear;
-		border-bottom: 1px solid #eee;
 
-		.line-item {
-			position: relative;
-			width: 100%;
+		.line-block {
 			height: max-content;
 			align-items: center;
+			position: relative;
 			color: $uni-color-primary;
-
-			.iconfont {
-				position: relative;
-				margin-left: 25rpx;
-				font-size: 35rpx;
-				font-weight: bold;
-				z-index: 10;
-
-				&:nth-of-type(2) {
-					margin: 0;
-					font-size: 90rpx;
-					position: absolute;
-					width: 100%;
-					text-align: center;
-					color: #000;
-					z-index: 0;
-				}
-			}
-		}
-
-		.avatar-img {
-			border-radius: 50%;
-			margin-left: 20rpx;
-			box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
-			border: 1px solid #eee;
-		}
-
-		.tap-bar {
-			height: 80rpx;
-			color: $uni-color-primary;
-			justify-content: space-around;
-			align-items: center;
-			font-size: 30rpx;
+			font-size: 25rpx;
 			font-weight: bold;
 
-			.tap-item {
-				height: 100%;
-				line-height: 80rpx;
-				text-align: center;
-				padding: 0 50rpx;
+			.iconfont {
+				margin-left: 25rpx;
 			}
 		}
 
-		.active {
-			border-bottom: 6rpx solid $uni-color-primary;
+		.avatar {
+			margin-left: 20rpx;
+			border-radius: 50%;
+			border: 1px solid #ddd;
+			box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.5);
 		}
-	}
 
-	.scroll-box {
-		height: 100vh;
-		box-sizing: border-box;
-		transition: padding 0.25s linear;
-		/* 让 padding 过渡自然 */
-	}
+		.header-bar {
+			justify-content: space-around;
+			font-size: 25rpx;
 
-	.post-btn {
-		width: 100rpx;
-		height: 100rpx;
-		border-radius: 50%;
-		background-color: $uni-color-primary;
-		position: fixed;
-		bottom: 120rpx;
-		right: 50rpx;
-		color: #fff;
-		justify-content: center;
-		align-items: center;
-		font-size: 40rpx;
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-		transition: transform 0.25s ease;
-	}
+			.bar-item {
+				height: 80rpx;
+				flex: 1;
+				justify-content: center;
+				align-items: center;
 
-	.post-btn__hover {
-		transform: scale(1.1);
+				&:nth-of-type(1) {
+					justify-content: flex-start;
+					border-right: 1px solid #ddd;
+
+					.iconfont {
+						border-radius: 50%;
+					}
+				}
+			}
+
+			.btn-item {
+				padding: 15rpx;
+				margin: 0 30rpx;
+				background-color: #F2F4F7;
+				border-radius: 40rpx;
+			}
+		}
 	}
 </style>

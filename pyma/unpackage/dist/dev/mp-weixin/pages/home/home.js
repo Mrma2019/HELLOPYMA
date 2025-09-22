@@ -3,7 +3,7 @@ const common_vendor = require("../../common/vendor.js");
 const store_weatherStore = require("../../store/weatherStore.js");
 const pages_home_index = require("./index.js");
 const utils_format = require("../../utils/format.js");
-const store_userStore = require("../../store/userStore.js");
+require("../../store/userStore.js");
 const _sfc_main = {
   data() {
     return {
@@ -45,12 +45,12 @@ const _sfc_main = {
     },
     //页面跳转
     async navigatorTo(e) {
-      var _a;
       const pagepath = e.currentTarget.dataset.pagepath;
       const isToWeather = pagepath.match(/^\/pages\/([^\/]+)/)[1] === "weather" ? true : false;
+      const userInfo = common_vendor.index.getStorageSync("userInfo");
       if (isToWeather && store_weatherStore.weatherStore.loading)
         return;
-      if (!isToWeather && !((_a = store_userStore.userStore.data) == null ? void 0 : _a.isLogin)) {
+      if (!isToWeather && !userInfo.isLogin) {
         await common_vendor.index.showModal({
           title: "提示",
           content: "当前操作需要您授权登录后，才能使用～",
@@ -60,7 +60,7 @@ const _sfc_main = {
                 url: "/pages/info/info"
               });
             } else if (res.cancel) {
-              common_vendor.index.__f__("log", "at pages/home/home.vue:156", "user click cancel");
+              common_vendor.index.__f__("log", "at pages/home/home.vue:157", "user click cancel");
             }
           }
         });

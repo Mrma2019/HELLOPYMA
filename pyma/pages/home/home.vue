@@ -140,10 +140,11 @@
 			async navigatorTo(e) {
 				const pagepath = e.currentTarget.dataset.pagepath;
 				const isToWeather = pagepath.match(/^\/pages\/([^\/]+)/)[1] === 'weather' ? true : false;
+				const userInfo = uni.getStorageSync('userInfo');
 
 				if (isToWeather && weatherStore.loading) return;
 				// console.log('isLogin', userStore.data?.isLogin);
-				if (!isToWeather && !userStore.data?.isLogin) {
+				if (!isToWeather && !userInfo.isLogin) {
 					await uni.showModal({
 						title: "提示",
 						content: "当前操作需要您授权登录后，才能使用～",

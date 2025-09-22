@@ -7,42 +7,32 @@ const pageInfoRaw = {
   isBack: false,
   followCount: 0,
   fansCount: 0,
-  navList: [
-    {
-      title: "我的发布",
-      item_list: [
-        {
-          unicode: "&#xe669;",
-          text: "活动"
-        },
-        {
-          unicode: "&#xe605;",
-          text: "动态"
-        }
-      ]
-    },
-    {
-      title: "设置",
-      item_list: [
-        {
-          unicode: "&#xe616;",
-          text: "退出登录"
-        }
-      ]
-    }
-  ]
+  navList: {
+    title: "活动相关",
+    item_list: [
+      {
+        unicode: "&#xe669;",
+        text: "活动"
+      },
+      {
+        unicode: "&#xe605;",
+        text: "动态"
+      }
+    ]
+  }
 };
 async function getPageInfo() {
   const pageInfo = {
     ...pageInfoRaw,
-    navList: pageInfoRaw.navList.map((category) => ({
-      ...category,
-      item_list: category.item_list.map((item) => ({
+    navList: {
+      ...pageInfoRaw.navList,
+      // 这里用 navList 原始对象
+      item_list: pageInfoRaw.navList.item_list.map((item) => ({
         ...item,
         unicode: utils_decode.decodeUnicodeEntity(item.unicode)
-        // 解码 item_list 里的 unicode
+        // 解码
       }))
-    }))
+    }
   };
   return pageInfo;
 }

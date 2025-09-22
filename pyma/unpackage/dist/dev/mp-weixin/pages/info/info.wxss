@@ -33,11 +33,11 @@
   background-color: #1A4190;
   border-radius: 20rpx;
   color: #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
 }
 .profile-card .avatar-wrapper {
   align-items: center;
-  padding: 20rpx;
+  padding: 35rpx 20rpx;
   position: relative;
   border-bottom: 1px solid #ddd;
 }
@@ -83,16 +83,69 @@
   font-size: 30rpx;
 }
 .profile-card .follow .block {
-  padding: 15rpx;
+  padding: 20rpx;
   align-items: center;
+}
+.profile-card .follow .block .count {
+  margin-left: 20rpx;
 }
 .nav-card {
   width: 95%;
   height: -webkit-max-content;
   height: max-content;
   margin-top: 20rpx;
-  background-color: #fff;
+  margin-bottom: 40rpx;
+}
+.nav-card .title {
+  padding: 20rpx 0;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #1A4190;
+}
+.nav-card .nav-content {
+  flex-wrap: wrap;
+}
+.nav-card .nav-item {
+  width: 49%;
+  height: 120rpx;
+  margin-right: 2%;
+  margin-bottom: 20rpx;
+  justify-content: center;
+  padding-left: 25rpx;
   border-radius: 20rpx;
+  background-color: #fff;
+  color: #1A4190;
+  font-size: 30rpx;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+}
+.nav-card .nav-item:nth-of-type(2n) {
+  margin-right: 0;
+}
+.nav-card .nav-item .iconfont {
+  font-size: 50rpx;
+  font-weight: normal;
+}
+.logout {
+  width: 95%;
+  border-radius: 20rpx;
+  padding: 30rpx 20rpx;
+  color: #1A4190;
+  font-size: 30rpx;
+  position: relative;
+  background: #fff;
+  align-items: center;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+}
+.logout .text {
+  margin-left: 20rpx;
+}
+.logout .iconfont:nth-child(1) {
+  font-size: 35rpx;
+}
+.logout .iconfont:nth-child(3) {
+  position: absolute;
+  right: 40rpx;
 }
 .popup-content {
   padding: 0 40rpx;
