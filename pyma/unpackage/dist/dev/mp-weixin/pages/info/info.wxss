@@ -30,126 +30,27 @@
   width: 95%;
   height: -webkit-max-content;
   height: max-content;
-  background-color: #1A4190;
-  border-radius: 20rpx;
-  color: #fff;
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
-}
-.profile-card .avatar-wrapper {
   align-items: center;
-  padding: 35rpx 20rpx;
   position: relative;
-  border-bottom: 1px solid #ddd;
 }
-.profile-card .avatar-wrapper .avatar {
-  width: 100rpx;
-  height: 100rpx;
-  margin-left: 20rpx;
-  border-radius: 20rpx;
-  border: 2px solid #fff;
-}
-.profile-card .avatar-wrapper .nickname {
-  flex: 1;
-  font-size: 30rpx;
-  padding: 0 100rpx 0 40rpx;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-.profile-card .avatar-wrapper .menu-btn {
-  width: 40rpx;
-  height: 40rpx;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  right: 40rpx;
-  background-color: #fff;
+.profile-card .avatar {
+  width: 150rpx;
+  height: 150rpx;
   border-radius: 50%;
-  color: #1A4190;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-  transition: transform 0.25s ease;
-  will-change: transform;
+  border: 2px solid #ddd;
 }
-.profile-card .avatar-wrapper .menu-btn .iconfont {
-  font-weight: bold;
-  font-size: 25rpx;
-}
-.profile-card .avatar-wrapper .menu-btn__hover {
-  transform: scale(1.1);
-}
-.profile-card .follow {
-  justify-content: space-around;
-  align-items: center;
-  font-size: 30rpx;
-}
-.profile-card .follow .block {
-  padding: 20rpx;
-  align-items: center;
-}
-.profile-card .follow .block .count {
+.profile-card .nickname {
   margin-left: 20rpx;
-}
-.nav-card {
-  width: 95%;
-  height: -webkit-max-content;
-  height: max-content;
-  margin-top: 20rpx;
-  margin-bottom: 40rpx;
-  padding: 0 20rpx;
-  background-color: #fff;
-  border-radius: 20rpx;
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
-}
-.nav-card .title {
-  padding: 20rpx 0;
-  font-size: 32rpx;
-  font-weight: bold;
-  color: #1A4190;
-}
-.nav-card .nav-content {
-  flex-wrap: wrap;
-}
-.nav-card .nav-item {
-  width: 49%;
-  height: 120rpx;
-  margin-right: 2%;
-  margin-bottom: 20rpx;
-  justify-content: center;
-  padding-left: 25rpx;
-  border-radius: 20rpx;
-  background-color: #1A4190;
-  color: #fff;
   font-size: 30rpx;
-  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
-  font-weight: bold;
 }
-.nav-card .nav-item:nth-of-type(2n) {
-  margin-right: 0;
-}
-.nav-card .nav-item .iconfont {
-  font-size: 50rpx;
-  font-weight: normal;
-}
-.logout {
-  width: 95%;
-  border-radius: 20rpx;
-  padding: 30rpx 20rpx;
-  color: #1A4190;
-  font-size: 30rpx;
-  position: relative;
-  background: #fff;
-  align-items: center;
-  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
-}
-.logout .text {
-  margin-left: 20rpx;
-}
-.logout .iconfont:nth-child(1) {
-  font-size: 35rpx;
-}
-.logout .iconfont:nth-child(3) {
+.profile-card .edit {
   position: absolute;
   right: 40rpx;
+  font-size: 30rpx;
+  padding: 10rpx;
+  border-radius: 20rpx;
+  color: #215088;
+  border: 1px solid #215088;
 }
 .popup-content {
   padding: 0 40rpx;

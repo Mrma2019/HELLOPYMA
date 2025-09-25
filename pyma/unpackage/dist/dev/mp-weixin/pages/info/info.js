@@ -28,17 +28,17 @@ const _sfc_main = {
       this.is_popup = false;
     },
     onChooseAvatar(e) {
-      common_vendor.index.__f__("log", "at pages/info/info.vue:108", e);
+      common_vendor.index.__f__("log", "at pages/info/info.vue:78", e);
       const {
         avatarUrl
       } = e.detail;
-      common_vendor.index.__f__("log", "at pages/info/info.vue:112", "avatarUrl", avatarUrl);
+      common_vendor.index.__f__("log", "at pages/info/info.vue:82", "avatarUrl", avatarUrl);
       this.defaultAvatarUrl = avatarUrl;
       this.userInfoRaw.avatarUrl = avatarUrl;
     },
     onInput(e) {
       const nickname = e.target.value;
-      common_vendor.index.__f__("log", "at pages/info/info.vue:118", "nickName input", nickname);
+      common_vendor.index.__f__("log", "at pages/info/info.vue:88", "nickName input", nickname);
       this.userInfoRaw.nickname = nickname;
     },
     // 点击提交按钮
@@ -61,14 +61,14 @@ const _sfc_main = {
   async onLoad() {
     this.pageInfo = await pages_info_index.getPageInfo();
     if (store_systemStore.systemStore.data.screenWidth >= 768) {
-      common_vendor.index.__f__("log", "at pages/info/info.vue:142", "screenWidth>=768");
+      common_vendor.index.__f__("log", "at pages/info/info.vue:112", "screenWidth>=768");
       this.popupBoxHeight = "60";
     }
   },
   onShow() {
     const userInfo = common_vendor.index.getStorageSync("userInfo");
     if (!userInfo.isLogin) {
-      common_vendor.index.__f__("log", "at pages/info/info.vue:150", "info show", store_userStore.userStore.data.isLogin);
+      common_vendor.index.__f__("log", "at pages/info/info.vue:120", "info show", store_userStore.userStore.data.isLogin);
       this.is_popup = true;
     }
   },
@@ -105,35 +105,24 @@ if (!Math) {
   (_easycom_uni_nav_bar + _easycom_uni_popup + _easycom_uni_tab_bar)();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _a, _b;
   return {
     a: common_vendor.p({
       title: $data.pageInfo.navTitle,
       align: $data.pageInfo.navAlgin,
       color: $data.pageInfo.navColor
     }),
-    b: $options.userInfo.avatarUrl || $data.defaultAvatarUrl,
-    c: common_vendor.t($options.userInfo.nickname || "点击授权"),
-    d: common_vendor.t($data.pageInfo.followCount),
-    e: common_vendor.t($data.pageInfo.fansCount),
-    f: common_vendor.t((_a = $data.pageInfo.navList) == null ? void 0 : _a.title),
-    g: common_vendor.f((_b = $data.pageInfo.navList) == null ? void 0 : _b.item_list, (item, index, i0) => {
-      return {
-        a: common_vendor.t(item.unicode),
-        b: common_vendor.t(item.text),
-        c: index
-      };
-    }),
-    h: $options.systemInfo.navBarHeight + $data.gap + "px",
-    i: common_vendor.t($data.appName),
-    j: $options.userInfo.avatarUrl || $data.defaultAvatarUrl,
-    k: common_vendor.o((...args) => $options.onChooseAvatar && $options.onChooseAvatar(...args)),
-    l: $options.userInfo.nickname || $data.userInfoRaw.nickname,
-    m: common_vendor.o((...args) => $options.onInput && $options.onInput(...args)),
-    n: common_vendor.o((...args) => $options.onCancle && $options.onCancle(...args)),
-    o: common_vendor.o((...args) => $options.onSubmit && $options.onSubmit(...args)),
-    p: common_vendor.o(($event) => $data.is_popup = $event),
-    q: common_vendor.p({
+    b: $options.userInfo.avatarUrl,
+    c: common_vendor.t($options.userInfo.nickname),
+    d: $options.systemInfo.navBarHeight + $data.gap + "px",
+    e: common_vendor.t($data.appName),
+    f: $options.userInfo.avatarUrl || $data.defaultAvatarUrl,
+    g: common_vendor.o((...args) => $options.onChooseAvatar && $options.onChooseAvatar(...args)),
+    h: $options.userInfo.nickname || $data.userInfoRaw.nickname,
+    i: common_vendor.o((...args) => $options.onInput && $options.onInput(...args)),
+    j: common_vendor.o((...args) => $options.onCancle && $options.onCancle(...args)),
+    k: common_vendor.o((...args) => $options.onSubmit && $options.onSubmit(...args)),
+    l: common_vendor.o(($event) => $data.is_popup = $event),
+    m: common_vendor.p({
       height: $data.popupBoxHeight,
       show: $data.is_popup
     })

@@ -3,42 +3,12 @@
 		<uni-nav-bar :title="pageInfo.navTitle" :align="pageInfo.navAlgin" :color="pageInfo.navColor"></uni-nav-bar>
 		<scroll-view id="page-content" scroll-y :style="{paddingTop: systemInfo.navBarHeight + gap + 'px'}">
 			<view class="content-wrapper">
-				<view class="profile-card border-box flex-col">
-					<view class="avatar-wrapper flex-row">
-						<image class="avatar" :src="userInfo.avatarUrl || defaultAvatarUrl" mode="widthFix">
-						</image>
-						<text class="nickname">{{userInfo.nickname || '点击授权'}}</text>
-						<view class="menu-btn flex-row" hover-class="menu-btn__hover">
-							<text class="iconfont">&#xe7f6;</text>
-						</view>
+				<view class="profile-card border-box flex-row">
+					<image class="avatar" :src="userInfo.avatarUrl" mode="widthFix"></image>
+					<text class="nickname">{{userInfo.nickname}}</text>
+					<view class="edit">
+						<text>编辑资料</text>
 					</view>
-					<view class="follow flex-row">
-						<view class="block flex-row">
-							<text class="desc">关注</text>
-							<text class="count">{{pageInfo.followCount}}</text>
-						</view>
-						<view class="block flex-row">
-							<text class="desc">粉丝</text>
-							<text class="count">{{pageInfo.fansCount}}</text>
-						</view>
-					</view>
-				</view>
-				<view class="nav-card border-box flex-col">
-					<view class="title">
-						<text>{{pageInfo.navList?.title}}</text>
-					</view>
-					<view class="nav-content flex-row">
-						<view class="nav-item border-box flex-col" v-for="item, index in pageInfo.navList?.item_list"
-							:key="index">
-							<text class="iconfont">{{item.unicode}}</text>
-							<text class="nav-name">{{item.text}}</text>
-						</view>
-					</view>
-				</view>
-				<view class="logout border-box flex-row">
-					<text class="iconfont">&#xe611;</text>
-					<text class="text">注销登录</text>
-					<text class="iconfont">&#xe628;</text>
 				</view>
 			</view>
 		</scroll-view>
@@ -188,145 +158,29 @@
 	.profile-card {
 		width: $card-width;
 		height: max-content;
-		background-color: $uni-color-primary;
-		border-radius: $ele-border-radius;
-		color: #fff;
-		box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
-
-		.avatar-wrapper {
-			align-items: center;
-			padding: 35rpx 20rpx;
-			position: relative;
-			border-bottom: 1px solid #ddd;
-
-			.avatar {
-				width: 100rpx;
-				height: 100rpx;
-				margin-left: 20rpx;
-				border-radius: $ele-border-radius;
-				border: 2px solid #fff;
-			}
-
-			.nickname {
-				flex: 1;
-				font-size: 30rpx;
-				padding: 0 $avatar-width 0 40rpx;
-				white-space: nowrap;
-				text-overflow: ellipsis;
-				overflow: hidden;
-			}
-
-			.menu-btn {
-				width: 40rpx;
-				height: 40rpx;
-				justify-content: center;
-				align-items: center;
-				position: absolute;
-				right: 40rpx;
-				background-color: #fff;
-				border-radius: 50%;
-				color: $uni-color-primary;
-				box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-				transition: transform 0.25s ease;
-				will-change: transform;
-
-				.iconfont {
-					font-weight: bold;
-					font-size: 25rpx;
-				}
-			}
-
-			.menu-btn__hover {
-				transform: scale(1.1);
-			}
-		}
-
-		.follow {
-			justify-content: space-around;
-			align-items: center;
-			font-size: 30rpx;
-
-			.block {
-				padding: 20rpx;
-				align-items: center;
-
-				.count {
-					margin-left: 20rpx;
-				}
-			}
-		}
-	}
-
-	.nav-card {
-		width: $card-width;
-		height: max-content;
-		margin-top: $ele-margin;
-		margin-bottom: #{$ele-margin * 2};
-		padding: 0 20rpx;
-		background-color: #fff;
-		border-radius: $ele-border-radius;
-		box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
-
-		.title {
-			padding: 20rpx 0;
-			font-size: 32rpx;
-			font-weight: bold;
-			color: $uni-color-primary;
-		}
-
-		.nav-content {
-			flex-wrap: wrap;
-		}
-
-		.nav-item {
-			width: 49%;
-			height: 120rpx;
-			margin-right: 2%;
-			margin-bottom: 20rpx;
-			justify-content: center;
-			padding-left: 25rpx;
-			border-radius: $ele-border-radius;
-			background-color: $uni-color-primary;
-			color: #fff;
-			font-size: 30rpx;
-			box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
-			font-weight: bold;
-
-			&:nth-of-type(2n) {
-				margin-right: 0;
-			}
-
-			.iconfont {
-				font-size: 50rpx;
-				font-weight: normal;
-			}
-		}
-	}
-
-	.logout {
-		width: $card-width;
-		border-radius: $ele-border-radius;
-		padding: 30rpx 20rpx;
-		color: $uni-color-primary;
-		font-size: 30rpx;
-		position: relative;
-		background: #fff;
 		align-items: center;
-		box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+		position: relative;
 
-		.text {
-			margin-left: 20rpx;
+		.avatar {
+			width: 150rpx;
+			height: 150rpx;
+			border-radius: 50%;
+			border: 2px solid #ddd;
 		}
 
-		.iconfont {
-			&:nth-child(1) {
-				font-size: 35rpx;
-			}
+		.nickname {
+			margin-left: 20rpx;
+			font-size: 30rpx;
+		}
 
-			&:nth-child(3) {
-				position: absolute;
-				right: 40rpx;
-			}
+		.edit {
+			position: absolute;
+			right: 40rpx;
+			font-size: 30rpx;
+			padding: 10rpx;
+			border-radius: 20rpx;
+			color: #215088;
+			border: 1px solid #215088;
 		}
 	}
 
